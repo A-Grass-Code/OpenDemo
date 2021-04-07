@@ -1,0 +1,12 @@
+// 此文件配置说明：数据库连接信息配置，可配置多个连接信息，该配置文件支持热更改；
+// "default"    是每一个连接信息的唯一别名，不可重复；default 也是默认连接配置；
+// "DbType"     是每一个连接信息的数据库类型，小写字符表示，目前支持: mysql, mssqlserver, postgresql, oracle
+// "ConnString" 是每一个连接信息的数据库连接字符串
+
+
+{
+  "default": {
+    "DbType": "mysql",
+    "ConnString": "server=127.0.0.1;port=3306;database=test;user id=root;password=a_grass-mysql;characterset=utf8;connectiontimeout=20;defaultcommandtimeout=20;pooling=True;minpoolsize=30;maxpoolsize=100;connectionlifetime=1800;compress=True;autoenlist=True"
+  }
+}
