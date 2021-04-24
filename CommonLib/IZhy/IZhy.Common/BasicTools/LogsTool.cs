@@ -24,22 +24,22 @@ namespace IZhy.Common.BasicTools
         /// <summary>
         /// 异常类型
         /// </summary>
-        EX,
+        EX = 2,
 
         /// <summary>
         /// 警告类型
         /// </summary>
-        WARN,
+        WARN = 3,
 
         /// <summary>
         /// 运行时 SQL 记录
         /// </summary>
-        SQL,
+        SQL = 4,
 
         /// <summary>
         /// 流程性日志记录
         /// </summary>
-        FLOW
+        FLOW = 5
     }
 
     /// <summary>

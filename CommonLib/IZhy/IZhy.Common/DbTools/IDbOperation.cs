@@ -105,6 +105,16 @@ namespace IZhy.Common.DbTools
         List<dynamic> QueryMultiple(string sql, object param = null, int sqlExeTimeout = 20);
 
         /// <summary>
+        /// sql 查询 多个结果集
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sql">sql 语句或命令</param>
+        /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
+        /// <returns></returns>
+        List<List<T>> QueryMultiple<T>(string sql, object param = null, int sqlExeTimeout = 20);
+
+        /// <summary>
         /// sql 查询 第一条结果
         /// </summary>
         /// <param name="sql">sql 语句或命令</param>

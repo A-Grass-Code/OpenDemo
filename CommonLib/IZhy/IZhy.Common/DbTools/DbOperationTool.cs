@@ -167,7 +167,7 @@ namespace IZhy.Common.DbTools
             }
             catch (Exception ex)
             {
-                throw new Exception($"【DbOperationTool】 打开数据库连接，发生异常。{Environment.NewLine}{ex.Message}");
+                throw new Exception($"【DbOperationTool】 打开数据库连接，发生异常。{Environment.NewLine}{ex.Message}", ex);
             }
         }
 
@@ -186,7 +186,7 @@ namespace IZhy.Common.DbTools
             }
             catch (Exception ex)
             {
-                throw new Exception($"【DbOperationTool】 关闭数据库连接，发生异常。{Environment.NewLine}{ex.Message}");
+                throw new Exception($"【DbOperationTool】 关闭数据库连接，发生异常。{Environment.NewLine}{ex.Message}", ex);
             }
         }
 
@@ -207,7 +207,7 @@ namespace IZhy.Common.DbTools
             }
             catch (Exception ex)
             {
-                throw new Exception($"【DbOperationTool】 开启事务处理，发生异常。{Environment.NewLine}{ex.Message}");
+                throw new Exception($"【DbOperationTool】 开启事务处理，发生异常。{Environment.NewLine}{ex.Message}", ex);
             }
         }
 
@@ -224,7 +224,7 @@ namespace IZhy.Common.DbTools
             }
             catch (Exception ex)
             {
-                throw new Exception($"【DbOperationTool】 提交事务处理，发生异常。{Environment.NewLine}{ex.Message}");
+                throw new Exception($"【DbOperationTool】 提交事务处理，发生异常。{Environment.NewLine}{ex.Message}", ex);
             }
         }
 
@@ -249,7 +249,7 @@ namespace IZhy.Common.DbTools
             }
             catch (Exception ex)
             {
-                throw new Exception($"【DbOperationTool】 回滚或释放事务处理，发生异常。{Environment.NewLine}{ex.Message}");
+                throw new Exception($"【DbOperationTool】 回滚或释放事务处理，发生异常。{Environment.NewLine}{ex.Message}", ex);
             }
         }
 
@@ -277,7 +277,7 @@ namespace IZhy.Common.DbTools
         /// <summary>
         /// sql 查询
         /// </summary>
-        /// <param name="sql">sql 语句或命令</param>
+        /// <param name="sql">sql 语句 / 命令</param>
         /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
         /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
@@ -292,7 +292,7 @@ namespace IZhy.Common.DbTools
             catch (Exception ex)
             {
                 throw new Exception($"【DbOperationTool】 dynamic QueryBySql() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}");
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}", ex);
             }
         }
 
@@ -300,7 +300,7 @@ namespace IZhy.Common.DbTools
         /// sql 查询
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="sql">sql 语句或命令</param>
+        /// <param name="sql">sql 语句 / 命令</param>
         /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
         /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
@@ -315,7 +315,7 @@ namespace IZhy.Common.DbTools
             catch (Exception ex)
             {
                 throw new Exception($"【DbOperationTool】 List<T> QueryBySql<T>() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}");
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}", ex);
             }
         }
 
@@ -323,7 +323,7 @@ namespace IZhy.Common.DbTools
         /// <summary>
         /// 执行 sql 查询，返回第一行第一列的值，object 对象；例如：COUNT(0) 函数
         /// </summary>
-        /// <param name="sql">sql 语句或命令</param>
+        /// <param name="sql">sql 语句 / 命令</param>
         /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
         /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
@@ -338,7 +338,7 @@ namespace IZhy.Common.DbTools
             catch (Exception ex)
             {
                 throw new Exception($"【DbOperationTool】 object ExecuteScalar() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}");
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}", ex);
             }
         }
 
@@ -346,7 +346,7 @@ namespace IZhy.Common.DbTools
         /// 执行 sql 查询，返回第一行第一列的值；例如：COUNT(0) 函数
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="sql">sql 语句或命令</param>
+        /// <param name="sql">sql 语句 / 命令</param>
         /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
         /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
@@ -361,7 +361,7 @@ namespace IZhy.Common.DbTools
             catch (Exception ex)
             {
                 throw new Exception($"【DbOperationTool】 T ExecuteScalar<T>() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}");
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}", ex);
             }
         }
 
@@ -369,7 +369,7 @@ namespace IZhy.Common.DbTools
         /// <summary>
         /// sql 查询，返回 DataTable
         /// </summary>
-        /// <param name="sql">sql 语句或命令</param>
+        /// <param name="sql">sql 语句 / 命令</param>
         /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
         /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
@@ -386,14 +386,14 @@ namespace IZhy.Common.DbTools
             catch (Exception ex)
             {
                 throw new Exception($"【DbOperationTool】 DataTable QueryToDataTable() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}");
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}", ex);
             }
         }
 
         /// <summary>
         /// sql 查询 多个结果集
         /// </summary>
-        /// <param name="sql">sql 语句或命令</param>
+        /// <param name="sql">sql 语句 / 命令</param>
         /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
         /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
@@ -413,7 +413,35 @@ namespace IZhy.Common.DbTools
             catch (Exception ex)
             {
                 throw new Exception($"【DbOperationTool】 List<dynamic> QueryMultiple() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}");
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}", ex);
+            }
+        }
+
+        /// <summary>
+        /// sql 查询 多个结果集
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="sql">sql 语句 / 命令</param>
+        /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
+        /// <returns></returns>
+        public List<List<T>> QueryMultiple<T>(string sql, object param = null, int sqlExeTimeout = 20)
+        {
+            try
+            {
+                List<List<T>> results = new List<List<T>>();
+                // string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null
+                var res = DbConn.QueryMultiple(sql, param, Transaction, ValidSqlExeTimeout(sqlExeTimeout), CommandType.Text);
+                while (!res.IsConsumed)
+                {
+                    results.Add(res.Read<T>().ToList());
+                }
+                return results;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"【DbOperationTool】 List<List<T>> QueryMultiple<T>() 运行时发生异常。" +
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}", ex);
             }
         }
 
@@ -421,7 +449,7 @@ namespace IZhy.Common.DbTools
         /// <summary>
         /// sql 查询 第一条结果
         /// </summary>
-        /// <param name="sql">sql 语句或命令</param>
+        /// <param name="sql">sql 语句 / 命令</param>
         /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
         /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
@@ -436,7 +464,7 @@ namespace IZhy.Common.DbTools
             catch (Exception ex)
             {
                 throw new Exception($"【DbOperationTool】 dynamic QueryFirst() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}");
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}", ex);
             }
         }
 
@@ -444,7 +472,7 @@ namespace IZhy.Common.DbTools
         /// sql 查询 第一条结果
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="sql">sql 语句或命令</param>
+        /// <param name="sql">sql 语句 / 命令</param>
         /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
         /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
@@ -459,7 +487,7 @@ namespace IZhy.Common.DbTools
             catch (Exception ex)
             {
                 throw new Exception($"【DbOperationTool】 T QueryFirst<T>() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}");
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}", ex);
             }
         }
 
@@ -467,7 +495,7 @@ namespace IZhy.Common.DbTools
         /// sql 查询 单条结果
         /// <para>若有多条结果则抛异常</para>
         /// </summary>
-        /// <param name="sql">sql 语句或命令</param>
+        /// <param name="sql">sql 语句 / 命令</param>
         /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
         /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
@@ -482,7 +510,7 @@ namespace IZhy.Common.DbTools
             catch (Exception ex)
             {
                 throw new Exception($"【DbOperationTool】 dynamic QuerySingle() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}");
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}", ex);
             }
         }
 
@@ -491,7 +519,7 @@ namespace IZhy.Common.DbTools
         /// <para>若有多条结果则抛异常</para>
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="sql">sql 语句或命令</param>
+        /// <param name="sql">sql 语句 / 命令</param>
         /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
         /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
@@ -506,7 +534,7 @@ namespace IZhy.Common.DbTools
             catch (Exception ex)
             {
                 throw new Exception($"【DbOperationTool】 T QuerySingle<T>() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}");
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}", ex);
             }
         }
 
@@ -514,7 +542,7 @@ namespace IZhy.Common.DbTools
         /// <summary>
         /// 执行 sql 返回受影响行数
         /// </summary>
-        /// <param name="sql">sql 语句或命令</param>
+        /// <param name="sql">sql 语句 / 命令</param>
         /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象，匿名对象的数组或集合（在批量增、删、改时）</param>
         /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
@@ -529,14 +557,14 @@ namespace IZhy.Common.DbTools
             catch (Exception ex)
             {
                 throw new Exception($"【DbOperationTool】 int ExecuteSql() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}");
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}", ex);
             }
         }
 
         /// <summary>
         /// 执行 sql （存储过程） 返回受影响行数
         /// </summary>
-        /// <param name="sql">sql（存储过程）语句或命令</param>
+        /// <param name="sql">sql（存储过程）语句 / 命令</param>
         /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
         /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
@@ -551,14 +579,14 @@ namespace IZhy.Common.DbTools
             catch (Exception ex)
             {
                 throw new Exception($"【DbOperationTool】 int ExecuteProcedure() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}");
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}", ex);
             }
         }
 
         /// <summary>
         /// sql（存储过程）查询
         /// </summary>
-        /// <param name="sql">sql（存储过程）语句或命令</param>
+        /// <param name="sql">sql（存储过程）语句 / 命令</param>
         /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
         /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
@@ -573,7 +601,7 @@ namespace IZhy.Common.DbTools
             catch (Exception ex)
             {
                 throw new Exception($"【DbOperationTool】 dynamic QueryProcedure() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}");
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}", ex);
             }
         }
 
@@ -581,7 +609,7 @@ namespace IZhy.Common.DbTools
         /// sql（存储过程）查询
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="sql">sql（存储过程）语句或命令</param>
+        /// <param name="sql">sql（存储过程）语句 / 命令</param>
         /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
         /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
@@ -596,7 +624,7 @@ namespace IZhy.Common.DbTools
             catch (Exception ex)
             {
                 throw new Exception($"【DbOperationTool】 List<T> QueryProcedure<T>() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}");
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}", ex);
             }
         }
 
@@ -697,7 +725,7 @@ namespace IZhy.Common.DbTools
             catch (Exception ex)
             {
                 throw new Exception($"【DbOperationTool】 int ExeInsertSql() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(dicFields)}");
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(dicFields)}", ex);
             }
         }
 
@@ -738,7 +766,7 @@ namespace IZhy.Common.DbTools
             catch (Exception ex)
             {
                 throw new Exception($"【DbOperationTool】 int ExeBatchInsertSql() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(listFields)}");
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(listFields)}", ex);
             }
         }
 
@@ -855,7 +883,7 @@ namespace IZhy.Common.DbTools
             catch (Exception ex)
             {
                 throw new Exception($"【DbOperationTool】 int ExeUpdateSql() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(dicParams)}");
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(dicParams)}", ex);
             }
         }
 
@@ -907,7 +935,7 @@ namespace IZhy.Common.DbTools
             catch (Exception ex)
             {
                 throw new Exception($"【DbOperationTool】 int ExeBatchUpdateSql() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(listDicParams)}");
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(listDicParams)}", ex);
             }
         }
 
@@ -988,7 +1016,7 @@ namespace IZhy.Common.DbTools
             catch (Exception ex)
             {
                 throw new Exception($"【DbOperationTool】 int ExeDeleteSql() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(dicWhere)}");
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(dicWhere)}", ex);
             }
         }
 
@@ -1029,7 +1057,7 @@ namespace IZhy.Common.DbTools
             catch (Exception ex)
             {
                 throw new Exception($"【DbOperationTool】 int ExeBatchDeleteSql() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(listWhere)}");
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(listWhere)}", ex);
             }
         }
 
@@ -1144,7 +1172,7 @@ namespace IZhy.Common.DbTools
             catch (Exception ex)
             {
                 throw new Exception($"【DbOperationTool】 DataTable SelectATableByANDEqualSignToDt() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(dicWhere)}");
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(dicWhere)}", ex);
             }
         }
 
@@ -1184,7 +1212,7 @@ namespace IZhy.Common.DbTools
             catch (Exception ex)
             {
                 throw new Exception($"【DbOperationTool】 dynamic SelectATableByANDEqualSignToDy() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(dicWhere)}");
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(dicWhere)}", ex);
             }
         }
 
@@ -1260,7 +1288,7 @@ namespace IZhy.Common.DbTools
             catch (Exception ex)
             {
                 throw new Exception($"【DbOperationTool】 bool CheckATableDataExist() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(dicWhere)}");
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(dicWhere)}", ex);
             }
         }
     }
