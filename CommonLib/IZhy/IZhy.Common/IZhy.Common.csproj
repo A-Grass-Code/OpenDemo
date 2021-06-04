@@ -7,14 +7,15 @@
   <ItemGroup>
     <None Remove="CommonConfig\CommonConfig.json" />
     <None Remove="CommonConfig\DbConnInfo.json" />
+    <None Remove="SysEntities\ApiJsonParamEntity.cs~RF1a0ee6.TMP" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="CommonConfig\CommonConfig.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="CommonConfig\DbConnInfo.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 

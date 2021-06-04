@@ -107,65 +107,42 @@ namespace IZhy.Common.BasicTools
         /// <summary>
         /// 获取【记录性 INFO】日志的物理路径
         /// </summary>
-        private static string INFOLogPath()
-        {
-            DateTime nowDt = DateTime.Now;
-            return $"{GetLogSaveRootDirectory()}{nowDt:yyyy-MM-dd}{Path.DirectorySeparatorChar}" +
-                $"记录性日志{Path.DirectorySeparatorChar}{nowDt:HH}_INFO.log";
-        }
+        private static string INFOLogPath => $"{GetLogSaveRootDirectory()}{DateTime.Now:yyyy-MM-dd}{Path.DirectorySeparatorChar}INFO.log";
 
         /// <summary>
         /// 获取【异常性 EX】日志的物理路径
         /// </summary>
-        private static string EXLogPath()
-        {
-            DateTime nowDt = DateTime.Now;
-            return $"{GetLogSaveRootDirectory()}{nowDt:yyyy-MM-dd}{Path.DirectorySeparatorChar}" +
-                $"异常性日志{Path.DirectorySeparatorChar}{nowDt:HH}_EX.log";
-        }
+        private static string EXLogPath => $"{GetLogSaveRootDirectory()}{DateTime.Now:yyyy-MM-dd}{Path.DirectorySeparatorChar}EX.log";
 
         /// <summary>
         /// 获取【警告性 WARN】日志的物理路径
         /// </summary>
-        private static string WARNLogPath()
-        {
-            DateTime nowDt = DateTime.Now;
-            return $"{GetLogSaveRootDirectory()}{nowDt:yyyy-MM-dd}{Path.DirectorySeparatorChar}" +
-                $"警告性日志{Path.DirectorySeparatorChar}{nowDt:HH}_WARN.log";
-        }
+        private static string WARNLogPath => $"{GetLogSaveRootDirectory()}{DateTime.Now:yyyy-MM-dd}{Path.DirectorySeparatorChar}WARN.log";
 
         /// <summary>
         /// 获取【运行时 SQL】日志的物理路径
         /// </summary>
-        private static string SQLLogPath()
-        {
-            DateTime nowDt = DateTime.Now;
-            return $"{GetLogSaveRootDirectory()}{nowDt:yyyy-MM-dd}{Path.DirectorySeparatorChar}" +
-                $"运行时 SQL{Path.DirectorySeparatorChar}{nowDt:HH}_SQL.log";
-        }
+        private static string SQLLogPath => $"{GetLogSaveRootDirectory()}{DateTime.Now:yyyy-MM-dd}{Path.DirectorySeparatorChar}SQL.log";
 
         /// <summary>
         /// 获取【流程性日志】日志的物理路径
         /// </summary>
-        private static string FLOWLogPath()
-        {
-            DateTime nowDt = DateTime.Now;
-            return $"{GetLogSaveRootDirectory()}{nowDt:yyyy-MM-dd}{Path.DirectorySeparatorChar}" +
-                $"流程性日志{Path.DirectorySeparatorChar}{nowDt:HH}_FLOW.log";
-        }
+        private static string FLOWLogPath => $"{GetLogSaveRootDirectory()}{DateTime.Now:yyyy-MM-dd}{Path.DirectorySeparatorChar}FLOW.log";
 
 
         /// <summary>
-        /// 日志文件溢出检查
-        /// <para>单个日志文件若超出指定的大小（单位 MB），则删除该日志文件</para>
+        /// 检查单个日志文件是否超出可允许的最大大小
+        /// <para>若超出可允许的最大大小（单位 MB），则返回 true</para>
         /// </summary>
         /// <param name="logFilePath">日志文件的绝对路径</param>
-        private static void LogFileOverflowCheck(string logFilePath)
+        /// <returns></returns>
+        private static bool CheckLogFileBeyondMaxSize(string logFilePath)
         {
-            if (FilesTool.GetFileSize(logFilePath) >= 1024 * 1024 * LogFileSize())
+            if (FilesTool.GetFileSize(logFilePath) >= 1024 * 1024 * LogFileMaxSize())
             {
-                FilesTool.DeleteFile(logFilePath);
+                return true;
             }
+            return false;
         }
 
 
@@ -195,27 +172,23 @@ namespace IZhy.Common.BasicTools
         }
 
         /// <summary>
-        /// 判断单个日志文件溢出时的大小，单位：MB，默认 5.0
-        /// <para>允许的设置范围是： 1 ~ 20</para>
+        /// 单个日志文件可允许的最大大小，单位：MB，默认 10.0 （ 若超出，则不再向当前日志文件中继续写入 ）
         /// </summary>
-        public static double LogFileSize()
+        /// <returns></returns>
+        public static double LogFileMaxSize()
         {
             try
             {
-                double fileSize = Convert.ToDouble(CommonConfigTool.GetConfig(CommonConfigFieldsConst.LogFileSize) ?? 5.0);
-                if (fileSize < 1)
+                double fileSize = Convert.ToDouble(CommonConfigTool.GetConfig(CommonConfigFieldsConst.LogFileMaxSize) ?? 10.0);
+                if (fileSize < 10)
                 {
-                    fileSize = 1.0;
-                }
-                if (fileSize > 20)
-                {
-                    fileSize = 20.0;
+                    fileSize = 10.0;
                 }
                 return fileSize;
             }
             catch (Exception)
             {
-                return 5.0;
+                return 10.0;
             }
         }
 
@@ -394,8 +367,11 @@ namespace IZhy.Common.BasicTools
             {
                 lock (_writeingINFO)
                 {
-                    LogFileOverflowCheck(INFOLogPath());
-                    WriteLog(INFOLogPath(), ELogType.INFO, callerMethodName, methodExeTime, customMsg, null, addContent, methodExeIdNum);
+                    if (CheckLogFileBeyondMaxSize(INFOLogPath))
+                    {
+                        return;
+                    }
+                    WriteLog(INFOLogPath, ELogType.INFO, callerMethodName, methodExeTime, customMsg, null, addContent, methodExeIdNum);
                 }
             });
         }
@@ -425,8 +401,11 @@ namespace IZhy.Common.BasicTools
             {
                 lock (_writeingEX)
                 {
-                    LogFileOverflowCheck(EXLogPath());
-                    WriteLog(EXLogPath(), ELogType.EX, callerMethodName, methodExeTime, customMsg, sysMsg, addContent, methodExeIdNum);
+                    if (CheckLogFileBeyondMaxSize(EXLogPath))
+                    {
+                        return;
+                    }
+                    WriteLog(EXLogPath, ELogType.EX, callerMethodName, methodExeTime, customMsg, sysMsg, addContent, methodExeIdNum);
                 }
             });
         }
@@ -456,8 +435,11 @@ namespace IZhy.Common.BasicTools
             {
                 lock (_writeingEX)
                 {
-                    LogFileOverflowCheck(EXLogPath());
-                    WriteLog(EXLogPath(), ELogType.EX, callerMethodName, methodExeTime, customMsg, sysMsg.ToString(), addContent, methodExeIdNum);
+                    if (CheckLogFileBeyondMaxSize(EXLogPath))
+                    {
+                        return;
+                    }
+                    WriteLog(EXLogPath, ELogType.EX, callerMethodName, methodExeTime, customMsg, sysMsg.ToString(), addContent, methodExeIdNum);
                 }
             });
         }
@@ -485,8 +467,11 @@ namespace IZhy.Common.BasicTools
             {
                 lock (_writeingWARN)
                 {
-                    LogFileOverflowCheck(WARNLogPath());
-                    WriteLog(WARNLogPath(), ELogType.WARN, callerMethodName, methodExeTime, customMsg, null, addContent, methodExeIdNum);
+                    if (CheckLogFileBeyondMaxSize(WARNLogPath))
+                    {
+                        return;
+                    }
+                    WriteLog(WARNLogPath, ELogType.WARN, callerMethodName, methodExeTime, customMsg, null, addContent, methodExeIdNum);
                 }
             });
         }
@@ -514,8 +499,11 @@ namespace IZhy.Common.BasicTools
             {
                 lock (_writeingWARN)
                 {
-                    LogFileOverflowCheck(WARNLogPath());
-                    WriteLog(WARNLogPath(), ELogType.WARN, callerMethodName, methodExeTime, customMsg, null, addContent.ToString(), methodExeIdNum);
+                    if (CheckLogFileBeyondMaxSize(WARNLogPath))
+                    {
+                        return;
+                    }
+                    WriteLog(WARNLogPath, ELogType.WARN, callerMethodName, methodExeTime, customMsg, null, addContent.ToString(), methodExeIdNum);
                 }
             });
         }
@@ -543,8 +531,11 @@ namespace IZhy.Common.BasicTools
             {
                 lock (_writeingSQL)
                 {
-                    LogFileOverflowCheck(SQLLogPath());
-                    WriteLog(SQLLogPath(), ELogType.SQL, callerMethodName, methodExeTime, "运行时 SQL 记录", sysMsg, addContent, methodExeIdNum);
+                    if (CheckLogFileBeyondMaxSize(SQLLogPath))
+                    {
+                        return;
+                    }
+                    WriteLog(SQLLogPath, ELogType.SQL, callerMethodName, methodExeTime, "运行时 SQL 记录", sysMsg, addContent, methodExeIdNum);
                 }
             });
         }
@@ -571,8 +562,11 @@ namespace IZhy.Common.BasicTools
             {
                 lock (_writeingFLOW)
                 {
-                    LogFileOverflowCheck(FLOWLogPath());
-                    WriteLog(FLOWLogPath(), ELogType.FLOW, callerMethodName, methodExeTime, msg, null, null, methodExeIdNum);
+                    if (CheckLogFileBeyondMaxSize(FLOWLogPath))
+                    {
+                        return;
+                    }
+                    WriteLog(FLOWLogPath, ELogType.FLOW, callerMethodName, methodExeTime, msg, null, null, methodExeIdNum);
                 }
             });
         }

@@ -25,7 +25,9 @@ namespace IZhy.Common.SimpleTools
         {
             // 获取当前程序所在磁盘上的根目录
             {
-                string root = AppDomain.CurrentDomain.BaseDirectory;
+                // 参考 https://blog.csdn.net/weixin_34025151/article/details/86001814
+                string root = AppContext.BaseDirectory;
+
                 if (root.Last<char>() != Path.DirectorySeparatorChar)
                 {
                     root += Path.DirectorySeparatorChar;

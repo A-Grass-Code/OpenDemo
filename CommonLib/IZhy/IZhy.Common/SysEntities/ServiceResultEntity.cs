@@ -5,7 +5,7 @@ namespace IZhy.Common.SysEntities
     /// <summary>
     /// 服务接口 结果 实体类
     /// </summary>
-    public class ServiceResult
+    public class ServiceResultEntity
     {
         /// <summary>
         /// 是否成功
@@ -23,9 +23,9 @@ namespace IZhy.Common.SysEntities
         public object Result { get; set; } = null;
 
 
-        public ServiceResult() { }
+        public ServiceResultEntity() { }
 
-        public ServiceResult(bool isSucc, object result = null)
+        public ServiceResultEntity(bool isSucc, object result = null)
         {
             IsSucceed = isSucc;
             if (isSucc)
@@ -39,13 +39,13 @@ namespace IZhy.Common.SysEntities
             Result = result;
         }
 
-        public ServiceResult(string msg, bool isSucc = false)
+        public ServiceResultEntity(string msg, bool isSucc = false)
         {
             Message = msg;
             IsSucceed = isSucc;
         }
 
-        public ServiceResult(bool isSucc, string msg, object result)
+        public ServiceResultEntity(bool isSucc, string msg, object result)
         {
             IsSucceed = isSucc;
             Message = msg;

@@ -319,6 +319,30 @@ namespace IZhy.Common.DbTools
             }
         }
 
+        /// <summary>
+        /// sql 查询，返回 DataTable
+        /// </summary>
+        /// <param name="sql">sql 语句 / 命令</param>
+        /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
+        /// <returns></returns>
+        public DataTable QueryToDataTable(string sql, object param = null, int sqlExeTimeout = 20)
+        {
+            try
+            {
+                // string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null
+                var data = DbConn.ExecuteReader(sql, param, Transaction, ValidSqlExeTimeout(sqlExeTimeout), CommandType.Text);
+                DataTable dataTable = new DataTable();
+                dataTable.Load(data);
+                return dataTable;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"【DbOperationTool】 DataTable QueryToDataTable() 运行时发生异常。" +
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}", ex);
+            }
+        }
+
 
         /// <summary>
         /// 执行 sql 查询，返回第一行第一列的值，object 对象；例如：COUNT(0) 函数
@@ -365,30 +389,6 @@ namespace IZhy.Common.DbTools
             }
         }
 
-
-        /// <summary>
-        /// sql 查询，返回 DataTable
-        /// </summary>
-        /// <param name="sql">sql 语句 / 命令</param>
-        /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
-        /// <returns></returns>
-        public DataTable QueryToDataTable(string sql, object param = null, int sqlExeTimeout = 20)
-        {
-            try
-            {
-                // string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null
-                var data = DbConn.ExecuteReader(sql, param, Transaction, ValidSqlExeTimeout(sqlExeTimeout), CommandType.Text);
-                DataTable dataTable = new DataTable();
-                dataTable.Load(data);
-                return dataTable;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"【DbOperationTool】 DataTable QueryToDataTable() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}", ex);
-            }
-        }
 
         /// <summary>
         /// sql 查询 多个结果集
@@ -491,6 +491,7 @@ namespace IZhy.Common.DbTools
             }
         }
 
+
         /// <summary>
         /// sql 查询 单条结果
         /// <para>若有多条结果则抛异常</para>
@@ -583,6 +584,7 @@ namespace IZhy.Common.DbTools
             }
         }
 
+
         /// <summary>
         /// sql（存储过程）查询
         /// </summary>
@@ -627,6 +629,7 @@ namespace IZhy.Common.DbTools
                     $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}", ex);
             }
         }
+
 
 
         /// <summary>
@@ -1062,14 +1065,16 @@ namespace IZhy.Common.DbTools
         }
 
 
+
         /// <summary>
         /// 生成只查询某一张表数据的 select 语句；条件字段 AND 连接，“=” 等号运算
         /// </summary>
         /// <param name="tableName">表名</param>
         /// <param name="fields">字段列表</param>
         /// <param name="dicWhere">条件集合</param>
+        /// <param name="orderBy">字段排序数组，例：new string[] { "Field1 DESC", "Field2 ASC" }</param>
         /// <returns></returns>
-        private string SelectATableByANDEqualSignSql(string tableName, string[] fields, Dictionary<string, object> dicWhere)
+        private string SelectATableByANDEqualSignSql(string tableName, string[] fields, Dictionary<string, object> dicWhere, string[] orderBy = null)
         {
             StringBuilder sqlStr = new StringBuilder();
 
@@ -1131,6 +1136,23 @@ namespace IZhy.Common.DbTools
                 i++;
             }
 
+            if (orderBy?.Length > 0)
+            {
+                sqlStr.Append("ORDER BY");
+                for (i = 0; i < orderBy.Length; i++)
+                {
+                    if (i == 0)
+                    {
+                        sqlStr.Append($" {orderBy[i]}");
+                    }
+                    else
+                    {
+                        sqlStr.Append($", {orderBy[i]}");
+                    }
+                }
+                sqlStr.AppendLine();
+            }
+
             return sqlStr.ToString();
         }
 
@@ -1140,9 +1162,10 @@ namespace IZhy.Common.DbTools
         /// <param name="tableName">表名</param>
         /// <param name="fields">字段列表</param>
         /// <param name="dicWhere">条件集合</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
+        /// <param name="orderBy">字段排序数组，例：new string[] { "Field1 DESC", "Field2 ASC" }</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
         /// <returns></returns>
-        public DataTable SelectATableByANDEqualSignToDt(string tableName, string[] fields, Dictionary<string, object> dicWhere, int sqlExeTimeout = 20)
+        public dynamic SelectATableByANDEqualSign(string tableName, string[] fields, Dictionary<string, object> dicWhere, string[] orderBy = null, int sqlExeTimeout = 20)
         {
             if (string.IsNullOrWhiteSpace(tableName))
             {
@@ -1159,7 +1182,90 @@ namespace IZhy.Common.DbTools
                 throw new Exception("条件参数错误");
             }
 
-            string sql = SelectATableByANDEqualSignSql(tableName, fields, dicWhere);
+            string sql = SelectATableByANDEqualSignSql(tableName, fields, dicWhere, orderBy);
+
+            try
+            {
+                // string sql, object param = null, IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null
+                dynamic dyData = DbConn.Query(sql, dicWhere, Transaction, true, ValidSqlExeTimeout(sqlExeTimeout), CommandType.Text);
+                return dyData;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"【DbOperationTool】 dynamic SelectATableByANDEqualSign() 运行时发生异常。" +
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(dicWhere)}", ex);
+            }
+        }
+
+        /// <summary>
+        /// 查询某一张表中的数据；条件字段 AND 连接，“=” 等号运算
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="tableName">表名</param>
+        /// <param name="fields">字段列表</param>
+        /// <param name="dicWhere">条件集合</param>
+        /// <param name="orderBy">字段排序数组，例：new string[] { "Field1 DESC", "Field2 ASC" }</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <returns></returns>
+        public List<T> SelectATableByANDEqualSign<T>(string tableName, string[] fields, Dictionary<string, object> dicWhere, string[] orderBy = null, int sqlExeTimeout = 20)
+        {
+            if (string.IsNullOrWhiteSpace(tableName))
+            {
+                throw new Exception("表名错误");
+            }
+
+            if (fields == null || fields.Length < 1)
+            {
+                throw new Exception("字段参数错误");
+            }
+
+            if (dicWhere == null || dicWhere.Count < 1)
+            {
+                throw new Exception("条件参数错误");
+            }
+
+            string sql = SelectATableByANDEqualSignSql(tableName, fields, dicWhere, orderBy);
+
+            try
+            {
+                // string sql, object param = null, IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null
+                var data = DbConn.Query<T>(sql, dicWhere, Transaction, true, ValidSqlExeTimeout(sqlExeTimeout), CommandType.Text);
+                return data.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"【DbOperationTool】 List<T> SelectATableByANDEqualSign<T>() 运行时发生异常。" +
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(dicWhere)}", ex);
+            }
+        }
+
+        /// <summary>
+        /// 查询某一张表中的数据；条件字段 AND 连接，“=” 等号运算
+        /// </summary>
+        /// <param name="tableName">表名</param>
+        /// <param name="fields">字段列表</param>
+        /// <param name="dicWhere">条件集合</param>
+        /// <param name="orderBy">字段排序数组，例：new string[] { "Field1 DESC", "Field2 ASC" }</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
+        /// <returns></returns>
+        public DataTable SelectATableByANDEqualSignToDt(string tableName, string[] fields, Dictionary<string, object> dicWhere, string[] orderBy = null, int sqlExeTimeout = 20)
+        {
+            if (string.IsNullOrWhiteSpace(tableName))
+            {
+                throw new Exception("表名错误");
+            }
+
+            if (fields == null || fields.Length < 1)
+            {
+                throw new Exception("字段参数错误");
+            }
+
+            if (dicWhere == null || dicWhere.Count < 1)
+            {
+                throw new Exception("条件参数错误");
+            }
+
+            string sql = SelectATableByANDEqualSignSql(tableName, fields, dicWhere, orderBy);
 
             try
             {
@@ -1176,45 +1282,6 @@ namespace IZhy.Common.DbTools
             }
         }
 
-        /// <summary>
-        /// 查询某一张表中的数据；条件字段 AND 连接，“=” 等号运算
-        /// </summary>
-        /// <param name="tableName">表名</param>
-        /// <param name="fields">字段列表</param>
-        /// <param name="dicWhere">条件集合</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
-        /// <returns></returns>
-        public dynamic SelectATableByANDEqualSignToDy(string tableName, string[] fields, Dictionary<string, object> dicWhere, int sqlExeTimeout = 20)
-        {
-            if (string.IsNullOrWhiteSpace(tableName))
-            {
-                throw new Exception("表名错误");
-            }
-
-            if (fields == null || fields.Length < 1)
-            {
-                throw new Exception("字段参数错误");
-            }
-
-            if (dicWhere == null || dicWhere.Count < 1)
-            {
-                throw new Exception("条件参数错误");
-            }
-
-            string sql = SelectATableByANDEqualSignSql(tableName, fields, dicWhere);
-
-            try
-            {
-                // string sql, object param = null, IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null
-                dynamic dyData = DbConn.Query(sql, dicWhere, Transaction, true, ValidSqlExeTimeout(sqlExeTimeout), CommandType.Text);
-                return dyData;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"【DbOperationTool】 dynamic SelectATableByANDEqualSignToDy() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(dicWhere)}", ex);
-            }
-        }
 
         /// <summary>
         /// 检查某一张表中的数据是否已存在；条件字段 AND 连接，“=” 等号运算

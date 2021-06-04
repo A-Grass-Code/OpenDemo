@@ -85,7 +85,7 @@ namespace IZhy.Common.BasicTools
         {
             if (string.IsNullOrWhiteSpace(json))
             {
-                return default(T);
+                return default;
             }
             return JsonConvert.DeserializeObject<T>(json);
         }
@@ -178,7 +178,7 @@ namespace IZhy.Common.BasicTools
         {
             if (jToken == null)
             {
-                return default(T);
+                return default;
             }
 
             try
@@ -187,7 +187,7 @@ namespace IZhy.Common.BasicTools
             }
             catch (Exception)
             {
-                return default(T);
+                return default;
             }
         }
 

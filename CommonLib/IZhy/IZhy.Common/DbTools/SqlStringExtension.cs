@@ -13,5 +13,14 @@ namespace IZhy.Common.DbTools
         {
             return isJoin ? sql : string.Empty;
         }
+
+        public static string SqlWhere(this string sql, bool isJoin, Action trueExe)
+        {
+            if (isJoin)
+            {
+                trueExe();
+            }
+            return isJoin ? sql : string.Empty;
+        }
     }
 }

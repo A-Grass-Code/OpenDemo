@@ -274,32 +274,32 @@ namespace IZhy.Common.SimpleTools
         /// <summary>
         /// 月
         /// </summary>
-        public int Month;
+        public int Month { get; set; }
 
         /// <summary>
         /// 日
         /// </summary>
-        public int Day;
+        public int Day { get; set; }
 
         /// <summary>
         /// 时
         /// </summary>
-        public int Hour;
+        public int Hour { get; set; }
 
         /// <summary>
         /// 分
         /// </summary>
-        public int Minute;
+        public int Minute { get; set; }
 
         /// <summary>
         /// 秒
         /// </summary>
-        public int Second;
+        public int Second { get; set; }
 
         /// <summary>
         /// 星期
         /// </summary>
-        public DayOfWeek Week;
+        public DayOfWeek Week { get; set; }
 
 
         public override string ToString()

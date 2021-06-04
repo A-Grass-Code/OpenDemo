@@ -68,6 +68,16 @@ namespace IZhy.Common.DbTools
         List<T> QueryBySql<T>(string sql, object param = null, int sqlExeTimeout = 20);
 
         /// <summary>
+        /// sql 查询，返回 DataTable
+        /// </summary>
+        /// <param name="sql">sql 语句或命令</param>
+        /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <returns></returns>
+        DataTable QueryToDataTable(string sql, object param = null, int sqlExeTimeout = 20);
+
+
+        /// <summary>
         /// 执行 sql 查询，返回第一行第一列的值，object 对象；例如：COUNT(0) 函数
         /// </summary>
         /// <param name="sql">sql 语句或命令</param>
@@ -86,14 +96,6 @@ namespace IZhy.Common.DbTools
         /// <returns></returns>
         T ExecuteScalar<T>(string sql, object param = null, int sqlExeTimeout = 20);
 
-        /// <summary>
-        /// sql 查询，返回 DataTable
-        /// </summary>
-        /// <param name="sql">sql 语句或命令</param>
-        /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
-        /// <returns></returns>
-        DataTable QueryToDataTable(string sql, object param = null, int sqlExeTimeout = 20);
 
         /// <summary>
         /// sql 查询 多个结果集
@@ -114,6 +116,7 @@ namespace IZhy.Common.DbTools
         /// <returns></returns>
         List<List<T>> QueryMultiple<T>(string sql, object param = null, int sqlExeTimeout = 20);
 
+
         /// <summary>
         /// sql 查询 第一条结果
         /// </summary>
@@ -132,6 +135,7 @@ namespace IZhy.Common.DbTools
         /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
         /// <returns></returns>
         T QueryFirst<T>(string sql, object param = null, int sqlExeTimeout = 20);
+
 
         /// <summary>
         /// sql 查询 单条结果
@@ -154,6 +158,7 @@ namespace IZhy.Common.DbTools
         /// <returns></returns>
         T QuerySingle<T>(string sql, object param = null, int sqlExeTimeout = 20);
 
+
         /// <summary>
         /// 执行 sql 返回受影响行数
         /// </summary>
@@ -171,6 +176,7 @@ namespace IZhy.Common.DbTools
         /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
         /// <returns></returns>
         int ExecuteProcedure(string sql, object param = null, int sqlExeTimeout = 20);
+
 
         /// <summary>
         /// sql（存储过程）查询
@@ -192,6 +198,7 @@ namespace IZhy.Common.DbTools
         List<T> QueryProcedure<T>(string sql, object param = null, int sqlExeTimeout = 20);
 
 
+
         /// <summary>
         /// 新增数据 通用方法
         /// </summary>
@@ -209,6 +216,7 @@ namespace IZhy.Common.DbTools
         /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
         /// <returns></returns>
         int ExeBatchInsertSql(string tableName, List<Dictionary<string, object>> listFields, int sqlExeTimeout = 20);
+
 
         /// <summary>
         /// 修改数据 通用方法；条件字段 AND 连接，“=” 等号运算
@@ -232,6 +240,7 @@ namespace IZhy.Common.DbTools
         int ExeBatchUpdateSql(string tableName, List<Dictionary<string, object>> listDicFields,
            List<Dictionary<string, object>> listDicWhere, int sqlExeTimeout = 20);
 
+
         /// <summary>
         /// 删除数据 通用方法；条件字段 AND 连接，“=” 等号运算
         /// </summary>
@@ -251,15 +260,6 @@ namespace IZhy.Common.DbTools
         int ExeBatchDeleteSql(string tableName, List<Dictionary<string, object>> listWhere, int sqlExeTimeout = 20);
 
 
-        /// <summary>
-        /// 查询某一张表中的数据；条件字段 AND 连接，“=” 等号运算
-        /// </summary>
-        /// <param name="tableName">表名</param>
-        /// <param name="fields">字段列表</param>
-        /// <param name="dicWhere">条件集合</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
-        /// <returns></returns>
-        DataTable SelectATableByANDEqualSignToDt(string tableName, string[] fields, Dictionary<string, object> dicWhere, int sqlExeTimeout = 20);
 
         /// <summary>
         /// 查询某一张表中的数据；条件字段 AND 连接，“=” 等号运算
@@ -267,9 +267,34 @@ namespace IZhy.Common.DbTools
         /// <param name="tableName">表名</param>
         /// <param name="fields">字段列表</param>
         /// <param name="dicWhere">条件集合</param>
+        /// <param name="orderBy">字段排序数组，例：new string[] { "Field1 DESC", "Field2 ASC" }</param>
         /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
         /// <returns></returns>
-        dynamic SelectATableByANDEqualSignToDy(string tableName, string[] fields, Dictionary<string, object> dicWhere, int sqlExeTimeout = 20);
+        dynamic SelectATableByANDEqualSign(string tableName, string[] fields, Dictionary<string, object> dicWhere, string[] orderBy = null, int sqlExeTimeout = 20);
+
+        /// <summary>
+        /// 查询某一张表中的数据；条件字段 AND 连接，“=” 等号运算
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="tableName">表名</param>
+        /// <param name="fields">字段列表</param>
+        /// <param name="dicWhere">条件集合</param>
+        /// <param name="orderBy">字段排序数组，例：new string[] { "Field1 DESC", "Field2 ASC" }</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <returns></returns>
+        List<T> SelectATableByANDEqualSign<T>(string tableName, string[] fields, Dictionary<string, object> dicWhere, string[] orderBy = null, int sqlExeTimeout = 20);
+
+        /// <summary>
+        /// 查询某一张表中的数据；条件字段 AND 连接，“=” 等号运算
+        /// </summary>
+        /// <param name="tableName">表名</param>
+        /// <param name="fields">字段列表</param>
+        /// <param name="dicWhere">条件集合</param>
+        /// <param name="orderBy">字段排序数组，例：new string[] { "Field1 DESC", "Field2 ASC" }</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <returns></returns>
+        DataTable SelectATableByANDEqualSignToDt(string tableName, string[] fields, Dictionary<string, object> dicWhere, string[] orderBy = null, int sqlExeTimeout = 20);
+
 
         /// <summary>
         /// 检查某一张表中的数据是否已存在；条件字段 AND 连接，“=” 等号运算

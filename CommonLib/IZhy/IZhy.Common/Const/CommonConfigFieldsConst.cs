@@ -11,9 +11,9 @@
         public const string LogSaveDays = "LogSaveDays";
 
         /// <summary>
-        /// 单个日志文件溢出时的大小
+        /// 单个日志文件可允许的最大大小
         /// </summary>
-        public const string LogFileSize = "LogFileSize";
+        public const string LogFileMaxSize = "LogFileMaxSize";
 
         /// <summary>
         /// 日志保存的根目录
