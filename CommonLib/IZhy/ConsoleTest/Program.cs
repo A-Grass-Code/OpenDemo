@@ -18,29 +18,29 @@ namespace ConsoleTest
 
             // 日志测试
             {
-                //LogsTool.LogWritingExe = logInfo =>
-                //{
-                //    Console.WriteLine($"日志写入时执行 | {DateTime.Now.ToString("HH:mm:ss.ffff")}");
-                //    Console.WriteLine($"{JsonTool.ObjectToJson(logInfo, true)} | {DateTime.Now.ToString("HH:mm:ss.ffff")}");
-                //};
+                LogsTool.LogWritingExe = logInfo =>
+                {
+                    Console.WriteLine($"日志写入时执行 | {DateTime.Now.ToString("HH:mm:ss.ffff")}");
+                    Console.WriteLine($"{JsonTool.ObjectToJson(logInfo, true)} | {DateTime.Now.ToString("HH:mm:ss.ffff")}");
+                };
 
-                //LogsTool.ClearBeforeSpecifiedDaysLog = saveDays =>
-                //{
-                //    Console.WriteLine($"清除指定天数前的日志 => 天数： {saveDays} | {DateTime.Now.ToString("HH:mm:ss.ffff")}");
-                //};
+                LogsTool.ClearBeforeSpecifiedDaysLog = saveDays =>
+                {
+                    Console.WriteLine($"清除指定天数前的日志 => 天数： {saveDays} | {DateTime.Now.ToString("HH:mm:ss.ffff")}");
+                };
 
-                //for (int i = 0; i < 100; i++)
-                //{
-                //    Task.Factory.StartNew(num =>
-                //    {
-                //        LogsTool.ConsoleLog($"日志测试 {num} | {DateTime.Now.ToString("HH:mm:ss.ffff")}");
-                //    }, i + 1);
+                for (int i = 0; i < 100; i++)
+                {
+                    Task.Factory.StartNew(num =>
+                    {
+                        LogsTool.ConsoleLog($"日志测试 {num} | {DateTime.Now.ToString("HH:mm:ss.ffff")}");
+                    }, i + 1);
 
-                //    Task.Run(() =>
-                //    {
-                //        LogsTool.ConsoleLog($"日志测试 {i} | {DateTime.Now.ToString("HH:mm:ss.ffff")}");
-                //    });
-                //}
+                    Task.Run(() =>
+                    {
+                        LogsTool.ConsoleLog($"日志测试 {i} | {DateTime.Now.ToString("HH:mm:ss.ffff")}");
+                    });
+                }
             }
 
             // 数据库操作测试
