@@ -12,20 +12,7 @@ namespace IZhy.Common.Redis
     /// </summary>
     public static class RedisTool
     {
-        /// <summary>
-        /// 是否启用 Redis
-        /// </summary>
-        public static bool IsEnableRedis()
-        {
-            try
-            {
-                return Convert.ToBoolean(CommonConfigTool.GetConfig(CommonConfigFieldsConst.IsEnableRedis) ?? false);
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
+        private static string _redisConn;
 
         static RedisTool()
         {
@@ -33,7 +20,31 @@ namespace IZhy.Common.Redis
             {
                 return;
             }
-            RedisHelper.Initialization(new CSRedis.CSRedisClient(Convert.ToString(CommonConfigTool.GetConfig(CommonConfigFieldsConst.RedisConnString))));
+        }
+
+
+        /// <summary>
+        /// 是否启用 Redis
+        /// </summary>
+        public static bool IsEnableRedis()
+        {
+            try
+            {
+                bool isEnable = Convert.ToBoolean(CommonConfigTool.GetConfig(CommonConfigFieldsConst.IsEnableRedis) ?? false);
+
+                string redisConn = Convert.ToString(CommonConfigTool.GetConfig(CommonConfigFieldsConst.RedisConnString));
+                if (isEnable && _redisConn != redisConn)
+                {
+                    _redisConn = redisConn;
+                    RedisHelper.Initialization(new CSRedis.CSRedisClient(_redisConn));
+                }
+
+                return isEnable;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
 
@@ -169,6 +180,37 @@ namespace IZhy.Common.Redis
             }
             long ms = RedisHelper.PTtl(key);
             return KeyTimeSpan(ms);
+        }
+
+
+        /// <summary>
+        /// 更新 Key 的过期时间，单位 秒
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="seconds"></param>
+        /// <returns></returns>
+        public static bool Expire(string key, int seconds)
+        {
+            if (!IsEnableRedis())
+            {
+                return false;
+            }
+            return RedisHelper.Expire(key, seconds);
+        }
+
+        /// <summary>
+        /// 更新 Key 的过期时间，单位 秒
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="seconds"></param>
+        /// <returns></returns>
+        public static async Task<bool> ExpireAsync(string key, int seconds)
+        {
+            if (!IsEnableRedis())
+            {
+                return false;
+            }
+            return await RedisHelper.ExpireAsync(key, seconds);
         }
     }
 }

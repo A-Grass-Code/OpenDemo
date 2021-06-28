@@ -430,5 +430,27 @@ namespace IZhy.Common.SimpleTools
                 }
             });
         }
+
+
+        /// <summary>
+        /// 等待全部任务完成
+        /// <para>使用该方法必须等待该方法的完成，否则使用无效</para>
+        /// </summary>
+        /// <param name="pollingTime">轮询时间，单位 ms 毫秒，默认 500</param>
+        /// <returns></returns>
+        public async Task WaitingAllFinishAsync(int pollingTime = 500)
+        {
+            await Task.Run(async () =>
+            {
+                while (true)
+                {
+                    await Task.Delay(pollingTime);
+                    if (this.IsFinish)
+                    {
+                        break;
+                    }
+                }
+            });
+        }
     }
 }
