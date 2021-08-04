@@ -24,5 +24,10 @@
         /// 公共配置 文件夹名
         /// </summary>
         public const string CommonConfig = "CommonConfig";
+
+        /// <summary>
+        /// 文件上传的根目录 文件夹名
+        /// </summary>
+        public const string FilesUploadRoot = "FilesUploadRoot";
     }
 }

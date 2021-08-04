@@ -434,13 +434,19 @@ namespace IZhy.Common.SimpleTools
 
         /// <summary>
         /// 等待全部任务完成
-        /// <para>使用该方法必须等待该方法的完成，否则使用无效</para>
+        /// <para>注：使用该方法必须等待该方法的完成，否则使用无效</para>
+        /// <para>当 MaxExecuteCount = 0 时，该方法无意义，结果为 false</para>
         /// </summary>
         /// <param name="pollingTime">轮询时间，单位 ms 毫秒，默认 500</param>
         /// <returns></returns>
-        public async Task WaitingAllFinishAsync(int pollingTime = 500)
+        public async Task<bool> WaitingAllFinishAsync(int pollingTime = 500)
         {
-            await Task.Run(async () =>
+            if (MaxExecuteCount == 0)
+            {
+                return false;
+            }
+
+            return await Task.Run(async () =>
             {
                 while (true)
                 {
@@ -450,6 +456,7 @@ namespace IZhy.Common.SimpleTools
                         break;
                     }
                 }
+                return true;
             });
         }
     }

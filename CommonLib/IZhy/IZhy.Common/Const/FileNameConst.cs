@@ -14,5 +14,10 @@
         /// 通用的配置文件 文件名 // CommonConfig.json
         /// </summary>
         public const string CommonConfigJson = "CommonConfig.json";
+
+        /// <summary>
+        /// 用户头像 文件名
+        /// </summary>
+        public const string UserHeadPortrait = "UserHeadPortrait.jpg";
     }
 }

@@ -13,10 +13,10 @@ namespace IZhy.Common.BasicTools
         private static readonly object _lock = new object();
 
         /// <summary>
-        /// GC 回收器 初始化； 默认 每 45 秒 执行一次 GC.Collect();
+        /// GC 回收器 初始化； 默认 每 100 秒 执行一次 GC.Collect();
         /// </summary>
-        /// <param name="intervalTime">间隔时间，单位秒；默认 45 s</param>
-        public static void Init(int intervalTime = 45)
+        /// <param name="intervalTime">间隔时间，单位秒；默认 100 s</param>
+        public static void Init(int intervalTime = 100)
         {
             lock (_lock)
             {

@@ -7,6 +7,6 @@
 {
   "default": {
     "DbType": "mysql",
-    "ConnString": "server=127.0.0.1;port=3306;database=test;user id=root;password=admin123;characterset=utf8;connectiontimeout=20;defaultcommandtimeout=20;pooling=True;minpoolsize=30;maxpoolsize=100;connectionlifetime=1800;compress=True;autoenlist=True"
+    "ConnString": "server=127.0.0.1;port=3306;database=test;user id=root;password=admin123456;characterset=utf8;connectiontimeout=20;defaultcommandtimeout=20;pooling=True;minpoolsize=30;maxpoolsize=100;connectionlifetime=1800;compress=True;autoenlist=True"
   }
 }

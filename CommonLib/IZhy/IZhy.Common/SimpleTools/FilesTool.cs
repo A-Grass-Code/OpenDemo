@@ -28,9 +28,9 @@ namespace IZhy.Common.SimpleTools
                 // 参考 https://blog.csdn.net/weixin_34025151/article/details/86001814
                 string root = AppContext.BaseDirectory;
 
-                if (root.Last<char>() != Path.DirectorySeparatorChar)
+                if (root.Last<char>().ToString() != PathSeparator)
                 {
-                    root += Path.DirectorySeparatorChar;
+                    root += PathSeparator;
                 }
                 _programRootDirectory = root;
             }
@@ -38,14 +38,19 @@ namespace IZhy.Common.SimpleTools
             // 获取当前系统的桌面目录
             {
                 string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-                if (desktopPath.Last<char>() != Path.DirectorySeparatorChar)
+                if (desktopPath.Last<char>().ToString() != PathSeparator)
                 {
-                    desktopPath += Path.DirectorySeparatorChar;
+                    desktopPath += PathSeparator;
                 }
                 _currentDesktopDirectory = desktopPath;
             }
         }
 
+
+        /// <summary>
+        /// 路径分隔符
+        /// </summary>
+        public static string PathSeparator => Path.DirectorySeparatorChar.ToString();
 
         /// <summary>
         /// 获取程序根目录（ ..\ ）
@@ -62,26 +67,31 @@ namespace IZhy.Common.SimpleTools
         /// 获取程序根目录下的 NecessaryConfig 目录（ ..\NecessaryConfig\ ）
         /// </summary>
         public static string ProgramRootDirectoryNecessaryConfig =>
-            $"{ProgramRootDirectory}{FolderNameConst.NecessaryConfig}{Path.DirectorySeparatorChar}";
+            $"{ProgramRootDirectory}{FolderNameConst.NecessaryConfig}{PathSeparator}";
 
         /// <summary>
         /// 获取程序根目录下的 RunningConfig 目录（ ..\RunningConfig\ ）
         /// </summary>
         public static string ProgramRootDirectoryRunningConfig =>
-            $"{ProgramRootDirectory}{FolderNameConst.RunningConfig}{Path.DirectorySeparatorChar}";
+            $"{ProgramRootDirectory}{FolderNameConst.RunningConfig}{PathSeparator}";
 
         /// <summary>
         /// 获取程序根目录下的 Logs 目录（ ..\Logs\ ）
         /// </summary>
         public static string ProgramRootDirectoryLogs =>
-            $"{ProgramRootDirectory}{FolderNameConst.Logs}{Path.DirectorySeparatorChar}";
+            $"{ProgramRootDirectory}{FolderNameConst.Logs}{PathSeparator}";
 
         /// <summary>
         /// 获取程序根目录下的 CommonConfig 目录（ ..\CommonConfig\ ）
         /// </summary>
         public static string ProgramRootDirectoryCommonConfig =>
-            $"{ProgramRootDirectory}{FolderNameConst.CommonConfig}{Path.DirectorySeparatorChar}";
+            $"{ProgramRootDirectory}{FolderNameConst.CommonConfig}{PathSeparator}";
 
+        /// <summary>
+        /// 获取程序根目录下的 FilesUploadRoot 目录（ ..\FilesUploadRoot\ ）
+        /// </summary>
+        public static string ProgramRootDirectoryFilesUpload =>
+            $"{ProgramRootDirectory}{FolderNameConst.FilesUploadRoot}{PathSeparator}";
 
         /// <summary>
         /// 获取程序根目录下的 其他 目录（ ..\{otherDirectory}\ ）
@@ -92,7 +102,7 @@ namespace IZhy.Common.SimpleTools
         /// </param>
         /// <returns></returns>
         public static string ProgramRootDirectoryOther(string otherDirectory) =>
-            $"{ProgramRootDirectory}{otherDirectory}{Path.DirectorySeparatorChar}";
+            $"{ProgramRootDirectory}{otherDirectory}{PathSeparator}";
 
 
         /// <summary>

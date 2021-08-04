@@ -3,7 +3,6 @@ using IZhy.Common.SimpleTools;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -88,9 +87,9 @@ namespace IZhy.Common.BasicTools
                     return FilesTool.ProgramRootDirectoryLogs;
                 }
 
-                if (directory.Last<char>() != Path.DirectorySeparatorChar)
+                if (directory.Last<char>().ToString() != FilesTool.PathSeparator)
                 {
-                    directory += Path.DirectorySeparatorChar;
+                    directory += FilesTool.PathSeparator;
                 }
 
                 FilesTool.CreateFilePathDirectory(directory);
@@ -107,27 +106,27 @@ namespace IZhy.Common.BasicTools
         /// <summary>
         /// 获取【记录性 INFO】日志的物理路径
         /// </summary>
-        private static string INFOLogPath => $"{GetLogSaveRootDirectory()}{DateTime.Now:yyyy-MM-dd}{Path.DirectorySeparatorChar}INFO.log";
+        private static string INFOLogPath => $"{GetLogSaveRootDirectory()}{DateTime.Now:yyyy-MM-dd}{FilesTool.PathSeparator}INFO.log";
 
         /// <summary>
         /// 获取【异常性 EX】日志的物理路径
         /// </summary>
-        private static string EXLogPath => $"{GetLogSaveRootDirectory()}{DateTime.Now:yyyy-MM-dd}{Path.DirectorySeparatorChar}EX.log";
+        private static string EXLogPath => $"{GetLogSaveRootDirectory()}{DateTime.Now:yyyy-MM-dd}{FilesTool.PathSeparator}EX.log";
 
         /// <summary>
         /// 获取【警告性 WARN】日志的物理路径
         /// </summary>
-        private static string WARNLogPath => $"{GetLogSaveRootDirectory()}{DateTime.Now:yyyy-MM-dd}{Path.DirectorySeparatorChar}WARN.log";
+        private static string WARNLogPath => $"{GetLogSaveRootDirectory()}{DateTime.Now:yyyy-MM-dd}{FilesTool.PathSeparator}WARN.log";
 
         /// <summary>
         /// 获取【运行时 SQL】日志的物理路径
         /// </summary>
-        private static string SQLLogPath => $"{GetLogSaveRootDirectory()}{DateTime.Now:yyyy-MM-dd}{Path.DirectorySeparatorChar}SQL.log";
+        private static string SQLLogPath => $"{GetLogSaveRootDirectory()}{DateTime.Now:yyyy-MM-dd}{FilesTool.PathSeparator}SQL.log";
 
         /// <summary>
         /// 获取【流程性日志】日志的物理路径
         /// </summary>
-        private static string FLOWLogPath => $"{GetLogSaveRootDirectory()}{DateTime.Now:yyyy-MM-dd}{Path.DirectorySeparatorChar}FLOW.log";
+        private static string FLOWLogPath => $"{GetLogSaveRootDirectory()}{DateTime.Now:yyyy-MM-dd}{FilesTool.PathSeparator}FLOW.log";
 
 
         /// <summary>

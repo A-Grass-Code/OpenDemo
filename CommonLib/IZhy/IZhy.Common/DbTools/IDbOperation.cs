@@ -10,16 +10,20 @@ namespace IZhy.Common.DbTools
     public interface IDbOperation : IDisposable
     {
         /// <summary>
-        /// 获取当前连接对象的数据库名
+        /// 获取 配置文件中连接信息的唯一别名
         /// </summary>
-        /// <returns></returns>
-        string DbName();
+        string ConnUniqueAlias { get; }
 
-        /// <summary>
-        /// 获取当前的连接字符串信息
-        /// </summary>
-        /// <returns></returns>
-        Dictionary<string, string> GetConnStringInfo();
+
+        string GetDbName();
+
+        string GetDbVersion();
+
+        string GetDbSource();
+
+        int GetConnTimeout();
+
+        string GetConnString();
 
 
         /// <summary>
@@ -198,7 +202,6 @@ namespace IZhy.Common.DbTools
         List<T> QueryProcedure<T>(string sql, object param = null, int sqlExeTimeout = 20);
 
 
-
         /// <summary>
         /// 新增数据 通用方法
         /// </summary>
@@ -260,6 +263,14 @@ namespace IZhy.Common.DbTools
         int ExeBatchDeleteSql(string tableName, List<Dictionary<string, object>> listWhere, int sqlExeTimeout = 20);
 
 
+        /// <summary>
+        /// 检查某一张表中的数据是否已存在；条件字段 AND 连接，“=” 等号运算
+        /// </summary>
+        /// <param name="tableName">表名</param>
+        /// <param name="dicWhere">条件集合</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <returns></returns>
+        bool CheckATableDataExist(string tableName, Dictionary<string, object> dicWhere, int sqlExeTimeout = 20);
 
         /// <summary>
         /// 查询某一张表中的数据；条件字段 AND 连接，“=” 等号运算
@@ -296,13 +307,6 @@ namespace IZhy.Common.DbTools
         DataTable SelectATableByANDEqualSignToDt(string tableName, string[] fields, Dictionary<string, object> dicWhere, string[] orderBy = null, int sqlExeTimeout = 20);
 
 
-        /// <summary>
-        /// 检查某一张表中的数据是否已存在；条件字段 AND 连接，“=” 等号运算
-        /// </summary>
-        /// <param name="tableName">表名</param>
-        /// <param name="dicWhere">条件集合</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
-        /// <returns></returns>
-        bool CheckATableDataExist(string tableName, Dictionary<string, object> dicWhere, int sqlExeTimeout = 20);
+        string ToString();
     }
 }
