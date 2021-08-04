@@ -21,7 +21,7 @@ namespace IZhy.Common.BasicTools
         /// <summary>
         /// 获取一个指定的字符编码
         /// </summary>
-        /// <param name="name">编码名称；例如 utf-8, GB2312</param>
+        /// <param name="name">编码名称；例如 GBK 、 GB2312</param>
         /// <returns></returns>
         public static Encoding GetEncoding(string name)
         {
