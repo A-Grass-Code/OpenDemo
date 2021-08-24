@@ -101,7 +101,17 @@ namespace IZhy.Common.SimpleTools
                                 if ($"{time.Month}{time.Day}{time.Hour}{time.Minute}{time.Second}"
                                     == $"{Fixedtime.Month}{Fixedtime.Day}{Fixedtime.Hour}{Fixedtime.Minute}{Fixedtime.Second}")
                                 {
-                                    Task t = Task.Run(TimedAction);
+                                    _ = Task.Run(() =>
+                                    {
+                                        try
+                                        {
+                                            TimedAction();
+                                        }
+                                        catch (Exception)
+                                        {
+                                            // 不做处理
+                                        }
+                                    });
                                     await Task.Delay(1000);
                                 }
                                 break;
@@ -110,7 +120,17 @@ namespace IZhy.Common.SimpleTools
                                 if ($"{time.Day}{time.Hour}{time.Minute}{time.Second}"
                                     == $"{Fixedtime.Day}{Fixedtime.Hour}{Fixedtime.Minute}{Fixedtime.Second}")
                                 {
-                                    Task t = Task.Run(TimedAction);
+                                    _ = Task.Run(() =>
+                                    {
+                                        try
+                                        {
+                                            TimedAction();
+                                        }
+                                        catch (Exception)
+                                        {
+                                            // 不做处理
+                                        }
+                                    });
                                     await Task.Delay(1000);
                                 }
                                 break;
@@ -119,7 +139,17 @@ namespace IZhy.Common.SimpleTools
                                 if ($"{time.Hour}{time.Minute}{time.Second}"
                                     == $"{Fixedtime.Hour}{Fixedtime.Minute}{Fixedtime.Second}")
                                 {
-                                    Task t = Task.Run(TimedAction);
+                                    _ = Task.Run(() =>
+                                    {
+                                        try
+                                        {
+                                            TimedAction();
+                                        }
+                                        catch (Exception)
+                                        {
+                                            // 不做处理
+                                        }
+                                    });
                                     await Task.Delay(1000);
                                 }
                                 break;
@@ -128,7 +158,17 @@ namespace IZhy.Common.SimpleTools
                                 if ($"{time.Minute}{time.Second}"
                                     == $"{Fixedtime.Minute}{Fixedtime.Second}")
                                 {
-                                    Task t = Task.Run(TimedAction);
+                                    _ = Task.Run(() =>
+                                    {
+                                        try
+                                        {
+                                            TimedAction();
+                                        }
+                                        catch (Exception)
+                                        {
+                                            // 不做处理
+                                        }
+                                    });
                                     await Task.Delay(1000);
                                 }
                                 break;
@@ -137,7 +177,17 @@ namespace IZhy.Common.SimpleTools
                                 if ($"{time.Second}"
                                     == $"{Fixedtime.Second}")
                                 {
-                                    Task t = Task.Run(TimedAction);
+                                    _ = Task.Run(() =>
+                                    {
+                                        try
+                                        {
+                                            TimedAction();
+                                        }
+                                        catch (Exception)
+                                        {
+                                            // 不做处理
+                                        }
+                                    });
                                     await Task.Delay(1000);
                                 }
                                 break;
@@ -146,7 +196,17 @@ namespace IZhy.Common.SimpleTools
                                 if ($"{time.DayOfWeek}{time.Hour}{time.Minute}{time.Second}"
                                     == $"{Fixedtime.Week}{Fixedtime.Hour}{Fixedtime.Minute}{Fixedtime.Second}")
                                 {
-                                    Task t = Task.Run(TimedAction);
+                                    _ = Task.Run(() =>
+                                    {
+                                        try
+                                        {
+                                            TimedAction();
+                                        }
+                                        catch (Exception)
+                                        {
+                                            // 不做处理
+                                        }
+                                    });
                                     await Task.Delay(1000);
                                 }
                                 break;

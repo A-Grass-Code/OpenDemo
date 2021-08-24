@@ -221,7 +221,14 @@ namespace IZhy.Common.BasicTools
                 });
                 Task.Run(() =>
                 {
-                    ClearBeforeSpecifiedDaysLog(LogSaveDays());
+                    try
+                    {
+                        ClearBeforeSpecifiedDaysLog(LogSaveDays());
+                    }
+                    catch (Exception)
+                    {
+                        // 不做处理
+                    }
                 });
             }, ERepetitionTimePeriod.Daily, new FixedTimed(0, 0, 2, 46, 8)).Startup();
         }
@@ -258,7 +265,14 @@ namespace IZhy.Common.BasicTools
 
                 Task.Factory.StartNew(logInfo =>
                 {
-                    LogWritingExe(logInfo as Dictionary<string, string>);
+                    try
+                    {
+                        LogWritingExe(logInfo as Dictionary<string, string>);
+                    }
+                    catch (Exception)
+                    {
+                        // 不做处理
+                    }
                 }, new Dictionary<string, string>()
                 {
                     ["LogType"] = logType.ToString(),

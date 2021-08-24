@@ -7,7 +7,6 @@
   <ItemGroup>
     <None Remove="CommonConfig\CommonConfig.json" />
     <None Remove="CommonConfig\DbConnInfo.json" />
-    <None Remove="SysEntities\ApiJsonParamEntity.cs~RF1a0ee6.TMP" />
   </ItemGroup>
 
   <ItemGroup>

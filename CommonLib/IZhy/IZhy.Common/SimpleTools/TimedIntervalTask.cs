@@ -109,13 +109,33 @@ namespace IZhy.Common.SimpleTools
 
                     if (WhetherToRunFirst)
                     {
-                        Task t = Task.Run(TimedAction);
+                        _ = Task.Run(() =>
+                        {
+                            try
+                            {
+                                TimedAction();
+                            }
+                            catch (Exception)
+                            {
+                                // 不做处理
+                            }
+                        });
                         await Task.Delay(IntervalTime);
                     }
                     else
                     {
                         await Task.Delay(IntervalTime);
-                        Task t = Task.Run(TimedAction);
+                        _ = Task.Run(() =>
+                        {
+                            try
+                            {
+                                TimedAction();
+                            }
+                            catch (Exception)
+                            {
+                                // 不做处理
+                            }
+                        });
                     }
                 }
 
