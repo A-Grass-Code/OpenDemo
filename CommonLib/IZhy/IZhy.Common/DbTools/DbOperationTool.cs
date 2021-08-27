@@ -817,22 +817,22 @@ namespace IZhy.Common.DbTools
         /// <summary>
         /// 执行 sql （存储过程） 返回受影响行数
         /// </summary>
-        /// <param name="sql">sql（存储过程）语句 / 命令</param>
-        /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
+        /// <param name="pName">存储过程 名称</param>
+        /// <param name="param">存储过程所需的参数；一般是匿名对象、字典集合、实体对象</param>
         /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
-        public int ExecuteProcedure(string sql, object param = null, int sqlExeTimeout = 20)
+        public int ExecuteProcedure(string pName, object param = null, int sqlExeTimeout = 20)
         {
             try
             {
                 // string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null
-                var rows = DbConn.Execute(sql, param, Transaction, ValidSqlExeTime(sqlExeTimeout), CommandType.StoredProcedure);
+                var rows = DbConn.Execute(pName, param, Transaction, ValidSqlExeTime(sqlExeTimeout), CommandType.StoredProcedure);
                 return rows;
             }
             catch (Exception ex)
             {
                 throw new Exception($"【DbOperationTool】 int ExecuteProcedure() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}", ex);
+                    $"{Environment.NewLine}{ex.Message}{LogSql(pName)}{LogParam(param)}", ex);
             }
         }
 
@@ -840,22 +840,22 @@ namespace IZhy.Common.DbTools
         /// <summary>
         /// sql（存储过程）查询
         /// </summary>
-        /// <param name="sql">sql（存储过程）语句 / 命令</param>
-        /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
+        /// <param name="pName">存储过程 名称</param>
+        /// <param name="param">存储过程所需的参数；一般是匿名对象、字典集合、实体对象</param>
         /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
-        public dynamic QueryProcedure(string sql, object param = null, int sqlExeTimeout = 20)
+        public dynamic QueryProcedure(string pName, object param = null, int sqlExeTimeout = 20)
         {
             try
             {
                 // string sql, object param = null, IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null
-                dynamic dyData = DbConn.Query(sql, param, Transaction, true, ValidSqlExeTime(sqlExeTimeout), CommandType.StoredProcedure);
+                dynamic dyData = DbConn.Query(pName, param, Transaction, true, ValidSqlExeTime(sqlExeTimeout), CommandType.StoredProcedure);
                 return dyData;
             }
             catch (Exception ex)
             {
                 throw new Exception($"【DbOperationTool】 dynamic QueryProcedure() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}", ex);
+                    $"{Environment.NewLine}{ex.Message}{LogSql(pName)}{LogParam(param)}", ex);
             }
         }
 
@@ -863,22 +863,22 @@ namespace IZhy.Common.DbTools
         /// sql（存储过程）查询
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="sql">sql（存储过程）语句 / 命令</param>
-        /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
+        /// <param name="pName">存储过程 名称</param>
+        /// <param name="param">存储过程所需的参数；一般是匿名对象、字典集合、实体对象</param>
         /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
-        public List<T> QueryProcedure<T>(string sql, object param = null, int sqlExeTimeout = 20)
+        public List<T> QueryProcedure<T>(string pName, object param = null, int sqlExeTimeout = 20)
         {
             try
             {
                 // string sql, object param = null, IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null
-                var data = DbConn.Query<T>(sql, param, Transaction, true, ValidSqlExeTime(sqlExeTimeout), CommandType.StoredProcedure);
+                var data = DbConn.Query<T>(pName, param, Transaction, true, ValidSqlExeTime(sqlExeTimeout), CommandType.StoredProcedure);
                 return data.ToList();
             }
             catch (Exception ex)
             {
                 throw new Exception($"【DbOperationTool】 List<T> QueryProcedure<T>() 运行时发生异常。" +
-                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}", ex);
+                    $"{Environment.NewLine}{ex.Message}{LogSql(pName)}{LogParam(param)}", ex);
             }
         }
 

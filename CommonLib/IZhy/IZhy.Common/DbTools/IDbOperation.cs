@@ -175,31 +175,31 @@ namespace IZhy.Common.DbTools
         /// <summary>
         /// 执行 sql （存储过程） 返回受影响行数
         /// </summary>
-        /// <param name="sql">sql 语句或命令</param>
-        /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
+        /// <param name="pName">存储过程 名称</param>
+        /// <param name="param">存储过程所需的参数；一般是匿名对象、字典集合、实体对象</param>
         /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
         /// <returns></returns>
-        int ExecuteProcedure(string sql, object param = null, int sqlExeTimeout = 20);
+        int ExecuteProcedure(string pName, object param = null, int sqlExeTimeout = 20);
 
 
         /// <summary>
         /// sql（存储过程）查询
         /// </summary>
-        /// <param name="sql">sql（存储过程）语句或命令</param>
-        /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
+        /// <param name="pName">存储过程 名称</param>
+        /// <param name="param">存储过程所需的参数；一般是匿名对象、字典集合、实体对象</param>
         /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
-        dynamic QueryProcedure(string sql, object param = null, int sqlExeTimeout = 20);
+        dynamic QueryProcedure(string pName, object param = null, int sqlExeTimeout = 20);
 
         /// <summary>
         /// sql（存储过程）查询
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="sql">sql（存储过程）语句或命令</param>
-        /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
+        /// <param name="pName">存储过程 名称</param>
+        /// <param name="param">存储过程所需的参数；一般是匿名对象、字典集合、实体对象</param>
         /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
-        List<T> QueryProcedure<T>(string sql, object param = null, int sqlExeTimeout = 20);
+        List<T> QueryProcedure<T>(string pName, object param = null, int sqlExeTimeout = 20);
 
 
         /// <summary>
