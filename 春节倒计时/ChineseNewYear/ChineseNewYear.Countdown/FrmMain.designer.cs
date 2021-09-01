@@ -36,15 +36,18 @@ namespace ChineseNewYear.Countdown
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.lab_year = new System.Windows.Forms.Label();
+            this.lab_festivalName = new System.Windows.Forms.Label();
+            this.lab_festivalDate = new System.Windows.Forms.Label();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label1.ForeColor = System.Drawing.Color.Blue;
-            this.label1.Location = new System.Drawing.Point(25, 75);
+            this.label1.Location = new System.Drawing.Point(25, 103);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(61, 25);
             this.label1.TabIndex = 0;
@@ -52,10 +55,11 @@ namespace ChineseNewYear.Countdown
             // 
             // lab_countdown
             // 
+            this.lab_countdown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lab_countdown.AutoSize = true;
             this.lab_countdown.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lab_countdown.ForeColor = System.Drawing.Color.Red;
-            this.lab_countdown.Location = new System.Drawing.Point(92, 75);
+            this.lab_countdown.Location = new System.Drawing.Point(92, 103);
             this.lab_countdown.Name = "lab_countdown";
             this.lab_countdown.Size = new System.Drawing.Size(194, 25);
             this.lab_countdown.TabIndex = 1;
@@ -71,7 +75,7 @@ namespace ChineseNewYear.Countdown
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.toolStrip1.Size = new System.Drawing.Size(319, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(320, 25);
             this.toolStrip1.TabIndex = 2;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -83,8 +87,8 @@ namespace ChineseNewYear.Countdown
             this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
             this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(84, 22);
-            this.toolStripButton1.Text = "更新春节日期";
+            this.toolStripButton1.Size = new System.Drawing.Size(60, 22);
+            this.toolStripButton1.Text = "更新节日";
             this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
             // 
             // toolStripButton2
@@ -96,8 +100,8 @@ namespace ChineseNewYear.Countdown
             this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
             this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(96, 22);
-            this.toolStripButton2.Text = "重新启动倒计时";
+            this.toolStripButton2.Size = new System.Drawing.Size(72, 22);
+            this.toolStripButton2.Text = "重启倒计时";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
             // lab_year
@@ -107,16 +111,40 @@ namespace ChineseNewYear.Countdown
             this.lab_year.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.lab_year.Location = new System.Drawing.Point(25, 35);
             this.lab_year.Name = "lab_year";
-            this.lab_year.Size = new System.Drawing.Size(163, 25);
+            this.lab_year.Size = new System.Drawing.Size(125, 25);
             this.lab_year.TabIndex = 3;
-            this.lab_year.Text = "距离 0000 年春节";
+            this.lab_year.Text = "距离 0000 年";
+            // 
+            // lab_festivalName
+            // 
+            this.lab_festivalName.AutoSize = true;
+            this.lab_festivalName.Font = new System.Drawing.Font("微软雅黑", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lab_festivalName.ForeColor = System.Drawing.Color.Magenta;
+            this.lab_festivalName.Location = new System.Drawing.Point(156, 34);
+            this.lab_festivalName.Name = "lab_festivalName";
+            this.lab_festivalName.Size = new System.Drawing.Size(52, 27);
+            this.lab_festivalName.TabIndex = 4;
+            this.lab_festivalName.Text = "春节";
+            // 
+            // lab_festivalDate
+            // 
+            this.lab_festivalDate.AutoSize = true;
+            this.lab_festivalDate.Font = new System.Drawing.Font("微软雅黑", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lab_festivalDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.lab_festivalDate.Location = new System.Drawing.Point(26, 70);
+            this.lab_festivalDate.Name = "lab_festivalDate";
+            this.lab_festivalDate.Size = new System.Drawing.Size(94, 21);
+            this.lab_festivalDate.TabIndex = 5;
+            this.lab_festivalDate.Text = "...年...月...日";
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(319, 116);
+            this.ClientSize = new System.Drawing.Size(320, 144);
+            this.Controls.Add(this.lab_festivalDate);
+            this.Controls.Add(this.lab_festivalName);
             this.Controls.Add(this.lab_year);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.lab_countdown);
@@ -128,7 +156,7 @@ namespace ChineseNewYear.Countdown
             this.MaximizeBox = false;
             this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "春节倒计时";
+            this.Text = "节日倒计时";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.toolStrip1.ResumeLayout(false);
@@ -146,6 +174,8 @@ namespace ChineseNewYear.Countdown
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
         private System.Windows.Forms.Label lab_year;
+        private System.Windows.Forms.Label lab_festivalName;
+        private System.Windows.Forms.Label lab_festivalDate;
     }
 }
 

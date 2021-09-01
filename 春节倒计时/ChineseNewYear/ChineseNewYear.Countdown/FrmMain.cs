@@ -45,13 +45,18 @@ namespace ChineseNewYear.Countdown
         /// <summary>
         /// 是否正在运行倒计时
         /// </summary>
-        private static bool IsRunningCountdown { get; set; } = false;
+        private bool IsRunningCountdown { get; set; } = false;
+
+        /// <summary>
+        /// 节日信息
+        /// </summary>
+        internal (string FestivalName, DateTime FestivalDate) FestivalInfo { get; set; }
 
 
         /// <summary>
         /// 启动倒计时
         /// </summary>
-        public void StartCountdown()
+        internal void StartCountdown()
         {
             if (IsRunningCountdown)
             {
@@ -61,15 +66,27 @@ namespace ChineseNewYear.Countdown
             Task.Run(async () =>
             {
                 IsRunningCountdown = true;
+                FestivalInfo = Countdown.GetFestivalInfo();
                 while (true)
                 {
                     try
                     {
-                        dynamic dyData = DateTimeTool.ComputeHowLong(DateTime.Now, Countdown.NextChineseNewYearDate);
                         this.BeginInvoke(new Action(() =>
                         {
-                            this.lab_year.Text = $"距离 {Countdown.NextChineseNewYearDate.Year} 年春节";
-                            this.lab_countdown.Text = $"{dyData.Days}天 {dyData.Hours}时 {dyData.Minutes}分 {dyData.Seconds}秒";
+                            if (FestivalInfo.FestivalDate.Year < DateTime.Now.Year || string.IsNullOrWhiteSpace(FestivalInfo.FestivalName))
+                            {
+                                this.lab_year.Text = $"距离 ... 年";
+                                this.lab_festivalName.Text = "... 节日";
+                                this.lab_countdown.Text = $"{0}天 {0}时 {0}分 {0}秒";
+                            }
+                            else
+                            {
+                                dynamic dyData = DateTimeTool.ComputeHowLong(DateTime.Now, FestivalInfo.FestivalDate);
+                                this.lab_year.Text = $"距离 {FestivalInfo.FestivalDate.Year} 年";
+                                this.lab_festivalName.Text = FestivalInfo.FestivalName;
+                                this.lab_festivalDate.Text = FestivalInfo.FestivalDate.ToString("yyyy年M月d日");
+                                this.lab_countdown.Text = $"{dyData.Days}天 {dyData.Hours}时 {dyData.Minutes}分 {dyData.Seconds}秒";
+                            }
                         }));
                     }
                     catch (Exception)
@@ -78,7 +95,6 @@ namespace ChineseNewYear.Countdown
                         {
                             MessageBox.Show("请更新春节日期！", "异常提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             IsRunningCountdown = false;
-                            Countdown.ConfigLastChangeTime = default(DateTime);
 
                             if (IsRunningCountdown)
                             {

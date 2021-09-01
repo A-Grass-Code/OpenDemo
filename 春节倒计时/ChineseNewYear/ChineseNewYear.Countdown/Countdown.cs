@@ -13,53 +13,25 @@ namespace ChineseNewYear.Countdown
     public static class Countdown
     {
         /// <summary>
-        /// 用来存放 NextChineseNewYearDate.txt 配置文件 的 最后修改时间
+        /// FestivalInfo.dat 节日信息 文件绝对路径
         /// </summary>
-        public static DateTime ConfigLastChangeTime { get; set; }
+        public static readonly string ConfigPath = $"{FilesTool.ProgramRootDirectory}FestivalInfo.dat";
 
         /// <summary>
-        /// 获取一个 bool 值，表示 NextChineseNewYearDate.txt 配置文件 是否已被重新修改；true/false 是/否
+        /// 获取节日信息（ 节日名称 ，日期时间 ）
         /// </summary>
-        private static bool IsChangeConfigFile
+        /// <returns></returns>
+        public static (string FestivalName, DateTime FestivalDate) GetFestivalInfo()
         {
-            get
+            try
             {
-                if (!File.Exists(FilesTool.ConfigPath))
-                {
-                    throw new Exception($"NextChineseNewYearDate.txt 配置文件不存在，请检查 => [ {FilesTool.ConfigPath} ]");
-                }
-
-                try
-                {
-                    FileInfo fileInfo = new FileInfo(FilesTool.ConfigPath);
-                    if (fileInfo.LastWriteTime != ConfigLastChangeTime)
-                    {
-                        ConfigLastChangeTime = fileInfo.LastWriteTime;
-                        return true;
-                    }
-                }
-                catch (Exception)
-                {
-                    return true;
-                }
-                return false;
+                var festivalInfo = FilesTool.ReadFileToAll(ConfigPath).Split(new string[] { Environment.NewLine },
+                    StringSplitOptions.RemoveEmptyEntries);
+                return (festivalInfo[0].Trim(), Convert.ToDateTime(festivalInfo[1].Trim()));
             }
-        }
-
-
-        private static DateTime _nextChineseNewYearDate;
-        /// <summary>
-        /// 下一次春节日期
-        /// </summary>
-        public static DateTime NextChineseNewYearDate
-        {
-            get
+            catch (Exception)
             {
-                if (IsChangeConfigFile)
-                {
-                    _nextChineseNewYearDate = Convert.ToDateTime(FilesTool.ReadFileToAll(FilesTool.ConfigPath));
-                }
-                return _nextChineseNewYearDate;
+                return (string.Empty, default(DateTime));
             }
         }
     }

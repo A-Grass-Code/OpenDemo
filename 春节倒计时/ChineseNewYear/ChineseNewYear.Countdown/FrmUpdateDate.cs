@@ -48,12 +48,21 @@ namespace ChineseNewYear.Countdown
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(this.txt_festivalName.Text))
+            {
+                MessageBox.Show("请输入“节日名称”！", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             try
             {
-                FilesTool.WriteFileCreate(FilesTool.ConfigPath, this.dateTimePicker1.Value.ToString("yyyy-MM-dd"));
+                FilesTool.WriteFileCreate(Countdown.ConfigPath,
+                    $"{this.txt_festivalName.Text.Trim()}{Environment.NewLine}{this.date_festivalDate.Value:yyyy-MM-dd}");
                 this.Close();
 
-                FrmMain.CreateInstrance().StartCountdown();
+                var frm = FrmMain.CreateInstrance();
+                frm.FestivalInfo = Countdown.GetFestivalInfo();
+                frm.StartCountdown();
             }
             catch (Exception)
             {
@@ -68,14 +77,17 @@ namespace ChineseNewYear.Countdown
 
         private void FrmUpdateDate_Load(object sender, EventArgs e)
         {
-            this.Location = new Point(MainLocation.X + MainSize.Width + 30, MainLocation.Y);
+            this.Location = new Point(MainLocation.X, MainLocation.Y + MainSize.Height + 10);
             try
             {
-                this.dateTimePicker1.Value = Countdown.NextChineseNewYearDate;
+                (string FestivalName, DateTime FestivalDate) festivalInfo = Countdown.GetFestivalInfo();
+                this.txt_festivalName.Text = festivalInfo.FestivalName;
+                this.date_festivalDate.Value = festivalInfo.FestivalDate;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Countdown.ConfigLastChangeTime = default(DateTime);
+                this.txt_festivalName.Text = string.Empty;
+                this.date_festivalDate.Value = DateTime.Now;
             }
         }
     }

@@ -13,12 +13,6 @@ namespace ChineseNewYear.Countdown
     public static class FilesTool
     {
         /// <summary>
-        /// NextChineseNewYearDate.txt 配置文件绝对路径
-        /// </summary>
-        public static readonly string ConfigPath = $"{FilesTool.ProgramRootDirectory}NextChineseNewYearDate.txt";
-
-
-        /// <summary>
         /// 获取程序根目录（ ..\ ）
         /// </summary>
         public static string ProgramRootDirectory
