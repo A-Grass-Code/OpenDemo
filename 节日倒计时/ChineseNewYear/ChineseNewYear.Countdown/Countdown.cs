@@ -10,7 +10,7 @@ namespace ChineseNewYear.Countdown
     /// <summary>
     /// 倒计时 类
     /// </summary>
-    public static class Countdown
+    internal static class Countdown
     {
         /// <summary>
         /// FestivalInfo.dat 节日信息 文件绝对路径

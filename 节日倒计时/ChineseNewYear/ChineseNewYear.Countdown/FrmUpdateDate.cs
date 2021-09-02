@@ -41,9 +41,9 @@ namespace ChineseNewYear.Countdown
         #endregion
 
 
-        public Point MainLocation { get; set; }
+        internal Point MainLocation { get; set; }
 
-        public Size MainSize { get; set; }
+        internal Size MainSize { get; set; }
 
 
         private void button1_Click(object sender, EventArgs e)
