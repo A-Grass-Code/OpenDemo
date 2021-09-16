@@ -77,7 +77,7 @@ namespace ChineseNewYear.Countdown
 
         private void FrmUpdateDate_Load(object sender, EventArgs e)
         {
-            this.Location = new Point(MainLocation.X, MainLocation.Y + MainSize.Height + 10);
+            this.Location = new Point(MainLocation.X + MainSize.Width + 20, MainLocation.Y);
             try
             {
                 (string FestivalName, DateTime FestivalDate) festivalInfo = Countdown.GetFestivalInfo();

@@ -47,7 +47,7 @@ namespace ChineseNewYear.Countdown
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label1.ForeColor = System.Drawing.Color.Blue;
-            this.label1.Location = new System.Drawing.Point(25, 103);
+            this.label1.Location = new System.Drawing.Point(25, 105);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(61, 25);
             this.label1.TabIndex = 0;
@@ -59,7 +59,7 @@ namespace ChineseNewYear.Countdown
             this.lab_countdown.AutoSize = true;
             this.lab_countdown.Font = new System.Drawing.Font("微软雅黑", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.lab_countdown.ForeColor = System.Drawing.Color.Red;
-            this.lab_countdown.Location = new System.Drawing.Point(92, 103);
+            this.lab_countdown.Location = new System.Drawing.Point(92, 105);
             this.lab_countdown.Name = "lab_countdown";
             this.lab_countdown.Size = new System.Drawing.Size(194, 25);
             this.lab_countdown.TabIndex = 1;
@@ -142,7 +142,7 @@ namespace ChineseNewYear.Countdown
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(320, 144);
+            this.ClientSize = new System.Drawing.Size(320, 146);
             this.Controls.Add(this.lab_festivalDate);
             this.Controls.Add(this.lab_festivalName);
             this.Controls.Add(this.lab_year);

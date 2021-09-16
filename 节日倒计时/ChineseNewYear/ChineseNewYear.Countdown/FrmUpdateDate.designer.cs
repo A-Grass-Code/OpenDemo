@@ -99,7 +99,7 @@ namespace ChineseNewYear.Countdown
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(246, 149);
+            this.ClientSize = new System.Drawing.Size(246, 146);
             this.Controls.Add(this.txt_festivalName);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.button2);
