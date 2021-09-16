@@ -91,19 +91,11 @@ namespace ChineseNewYear.Countdown
                     }
                     catch (Exception)
                     {
+                        IsRunningCountdown = false;
                         this.BeginInvoke(new Action(() =>
                         {
                             MessageBox.Show("请更新春节日期！", "异常提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            IsRunningCountdown = false;
-
-                            if (IsRunningCountdown)
-                            {
-                                this.toolStripButton2.Enabled = false;
-                            }
-                            else
-                            {
-                                this.toolStripButton2.Enabled = true;
-                            }
+                            this.toolStripButton2.Enabled = !IsRunningCountdown;
                         }));
                         break;
                     }
@@ -111,14 +103,7 @@ namespace ChineseNewYear.Countdown
                     {
                         this.BeginInvoke(new Action(() =>
                         {
-                            if (IsRunningCountdown)
-                            {
-                                this.toolStripButton2.Enabled = false;
-                            }
-                            else
-                            {
-                                this.toolStripButton2.Enabled = true;
-                            }
+                            this.toolStripButton2.Enabled = !IsRunningCountdown;
                         }));
                     }
                     await Task.Delay(100);

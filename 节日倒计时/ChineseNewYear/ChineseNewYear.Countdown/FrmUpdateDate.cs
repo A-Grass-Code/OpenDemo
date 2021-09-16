@@ -46,6 +46,22 @@ namespace ChineseNewYear.Countdown
         internal Size MainSize { get; set; }
 
 
+        private void FrmUpdateDate_Load(object sender, EventArgs e)
+        {
+            this.Location = new Point(MainLocation.X + MainSize.Width + 20, MainLocation.Y);
+            try
+            {
+                (string FestivalName, DateTime FestivalDate) festivalInfo = Countdown.GetFestivalInfo();
+                this.txt_festivalName.Text = festivalInfo.FestivalName;
+                this.date_festivalDate.Value = festivalInfo.FestivalDate;
+            }
+            catch (Exception)
+            {
+                this.txt_festivalName.Text = string.Empty;
+                this.date_festivalDate.Value = DateTime.Now;
+            }
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(this.txt_festivalName.Text))
@@ -73,22 +89,6 @@ namespace ChineseNewYear.Countdown
         private void button2_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        private void FrmUpdateDate_Load(object sender, EventArgs e)
-        {
-            this.Location = new Point(MainLocation.X + MainSize.Width + 20, MainLocation.Y);
-            try
-            {
-                (string FestivalName, DateTime FestivalDate) festivalInfo = Countdown.GetFestivalInfo();
-                this.txt_festivalName.Text = festivalInfo.FestivalName;
-                this.date_festivalDate.Value = festivalInfo.FestivalDate;
-            }
-            catch (Exception)
-            {
-                this.txt_festivalName.Text = string.Empty;
-                this.date_festivalDate.Value = DateTime.Now;
-            }
         }
     }
 }
