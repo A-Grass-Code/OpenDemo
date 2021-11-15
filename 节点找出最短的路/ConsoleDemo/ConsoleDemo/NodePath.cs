@@ -25,7 +25,7 @@ namespace ConsoleDemo
         /// <summary>
         /// 用来存放所有的节点
         /// </summary>
-        private Dictionary<string, Node> Nodes { get; set; }
+        public Dictionary<string, Node> Nodes { get; set; }
 
 
         /// <summary>
