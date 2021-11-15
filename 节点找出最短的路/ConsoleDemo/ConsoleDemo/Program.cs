@@ -10,6 +10,7 @@ namespace ConsoleDemo
         {
             Console.WriteLine("Hello World!");
             Console.WriteLine();
+            Console.WriteLine();
 
             #region 初始化一些节点数据
             Node a = new Node("a");
@@ -34,13 +35,15 @@ namespace ConsoleDemo
             Node f = new Node("f");
             #endregion
 
-            Dictionary<string, Node> nodes = new Dictionary<string, Node>();
-            nodes.Add(nameof(a), a);
-            nodes.Add(nameof(b), b);
-            nodes.Add(nameof(c), c);
-            nodes.Add(nameof(d), d);
-            nodes.Add(nameof(e), e);
-            nodes.Add(nameof(f), f);
+            Dictionary<string, Node> nodes = new Dictionary<string, Node>()
+            {
+                { nameof(a), a },
+                { nameof(b), b },
+                { nameof(c), c },
+                { nameof(d), d },
+                { nameof(e), e },
+                { nameof(f), f }
+            };
 
             NodePath nodesPath = new NodePath(nodes);
             var shortestPath = nodesPath.ComputeShortestPath("c", "f");
@@ -56,6 +59,8 @@ namespace ConsoleDemo
             {
                 Console.WriteLine($"{item.Value}\t{item.Key}");
             }
+            Console.WriteLine();
+            Console.WriteLine("---------------------------------------------");
 
             Console.ReadKey();
         }
