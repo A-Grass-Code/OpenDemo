@@ -44,7 +44,7 @@ namespace ConsoleDemo
 
             if (startNode == endNode)
             {
-                _sbPath.Append($"{endNode}-");
+                _sbPath.Append($"-{endNode}");
                 _sbPath.AppendLine();
                 return;
             }
@@ -52,7 +52,7 @@ namespace ConsoleDemo
             var nodePath = Nodes[startNode].EveryPath;
             foreach (var item in nodePath)
             {
-                _sbPath.Append($"{startNode}-");
+                _sbPath.Append($"-{startNode}");
                 FindoutPath(item.Key, endNode);
             }
         }
@@ -74,9 +74,9 @@ namespace ConsoleDemo
             var pathArr = _sbPath.ToString().Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries);
             foreach (var item in pathArr)
             {
-                if (!item.Contains($"{startNode}-"))
+                if (!item.Contains($"-{startNode}"))
                 {
-                    _pathList.Add($"{startNode}-{item}");
+                    _pathList.Add($"-{startNode}{item}");
                 }
                 else
                 {
@@ -86,7 +86,7 @@ namespace ConsoleDemo
 
             for (int i = 0; i < _pathList.Count; i++)
             {
-                _pathList[i] = _pathList[i].Remove(_pathList[i].Length - 1);
+                _pathList[i] = _pathList[i].Remove(0, 1);
             }
         }
 

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace ConsoleDemo
 {
@@ -45,15 +43,18 @@ namespace ConsoleDemo
             nodes.Add(nameof(f), f);
 
             NodePath nodesPath = new NodePath(nodes);
-            var shortestPath = nodesPath.ComputeShortestPath("b", "f");
+            var shortestPath = nodesPath.ComputeShortestPath("c", "f");
 
+            Console.WriteLine("路长\t路径");
+            Console.WriteLine("---------------------------------------------");
+            Console.WriteLine();
             Console.WriteLine("最短路径：");
-            Console.WriteLine($"{shortestPath.Path}  {shortestPath.Length}");
+            Console.WriteLine($"{shortestPath.Length}\t{shortestPath.Path}");
             Console.WriteLine();
             Console.WriteLine("所有路径：");
             foreach (var item in shortestPath.AllPath)
             {
-                Console.WriteLine($"{item.Key}  {item.Value}");
+                Console.WriteLine($"{item.Value}\t{item.Key}");
             }
 
             Console.ReadKey();
