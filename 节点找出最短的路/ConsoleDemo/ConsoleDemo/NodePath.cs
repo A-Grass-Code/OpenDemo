@@ -10,8 +10,6 @@ namespace ConsoleDemo
     /// </summary>
     public class NodePath
     {
-        public NodePath() { }
-
         public NodePath(Dictionary<string, Node> nodes)
         {
             this.Nodes = nodes;

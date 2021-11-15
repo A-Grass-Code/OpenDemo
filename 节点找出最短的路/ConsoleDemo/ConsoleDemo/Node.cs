@@ -7,8 +7,6 @@ namespace ConsoleDemo
     /// </summary>
     public class Node
     {
-        public Node() { }
-
         public Node(string nodeName)
         {
             this.NodeName = nodeName;
