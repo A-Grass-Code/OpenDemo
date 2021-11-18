@@ -6,7 +6,7 @@ using System.Text;
 namespace ConsoleDemo
 {
     /// <summary>
-    /// 节点的最短路径
+    /// 节点路径
     /// </summary>
     public class NodePath
     {
@@ -48,10 +48,18 @@ namespace ConsoleDemo
             }
 
             var nodePath = Nodes[startNode].EveryPath;
-            foreach (var item in nodePath)
+            if (nodePath == null || nodePath.Count < 1)
             {
-                _sbPath.Append($"-{startNode}");
-                FindoutPath(item.Key, endNode);
+                _sbPath.AppendLine();
+                return;
+            }
+            else
+            {
+                foreach (var item in nodePath)
+                {
+                    _sbPath.Append($"-{startNode}");
+                    FindoutPath(item.Key, endNode);
+                }
             }
         }
 
@@ -61,7 +69,7 @@ namespace ConsoleDemo
         /// <param name="startNode"></param>
         /// <param name="endNode"></param>
         /// <returns></returns>
-        private void GetAllPath(string startNode, string endNode)
+        private bool GetAllPath(string startNode, string endNode)
         {
             _sbPath.Clear();
             _pathList.Clear();
@@ -84,8 +92,23 @@ namespace ConsoleDemo
 
             for (int i = 0; i < _pathList.Count; i++)
             {
-                _pathList[i] = _pathList[i].Remove(0, 1);
+                string path = _pathList[i].Remove(0, 1);
+                if (path.Contains($"{startNode}-") && path.Contains($"-{endNode}"))
+                {
+                    _pathList[i] = path;
+                }
+                else
+                {
+                    _pathList[i] = null;
+                }
             }
+
+            _pathList.RemoveAll(x =>
+            {
+                return string.IsNullOrWhiteSpace(x);
+            });
+
+            return _pathList.Count > 0;
         }
 
 
@@ -97,7 +120,10 @@ namespace ConsoleDemo
         /// <returns></returns>
         public (string Path, double Length, List<KeyValuePair<string, double>> AllPath) ComputeShortestPath(string startNode, string endNode)
         {
-            GetAllPath(startNode, endNode);
+            if (!GetAllPath(startNode, endNode))
+            {
+                return (string.Empty, -1, null);
+            }
 
             foreach (var item in _pathList)
             {

@@ -46,19 +46,33 @@ namespace ConsoleDemo
             };
 
             NodePath nodesPath = new NodePath(nodes);
-            var shortestPath = nodesPath.ComputeShortestPath("c", "f");
 
+            string startNode = "c";
+            string endNode = "f";
+            var shortestPath = nodesPath.ComputeShortestPath(startNode, endNode);
+
+            Console.WriteLine($"节点 {startNode} --> 节点 {endNode}");
+            Console.WriteLine();
             Console.WriteLine("路长\t路径");
             Console.WriteLine("---------------------------------------------");
             Console.WriteLine();
-            Console.WriteLine("最短路径：");
-            Console.WriteLine($"{shortestPath.Length}\t{shortestPath.Path}");
-            Console.WriteLine();
-            Console.WriteLine("所有路径：");
-            foreach (var item in shortestPath.AllPath)
+
+            if (shortestPath.AllPath == null)
             {
-                Console.WriteLine($"{item.Value}\t{item.Key}");
+                Console.WriteLine($"此路不通");
             }
+            else
+            {
+                Console.WriteLine("最短路径：");
+                Console.WriteLine($"{shortestPath.Length}\t{shortestPath.Path}");
+                Console.WriteLine();
+                Console.WriteLine("所有路径：");
+                foreach (var item in shortestPath.AllPath)
+                {
+                    Console.WriteLine($"{item.Value}\t{item.Key}");
+                }
+            }
+
             Console.WriteLine();
             Console.WriteLine("---------------------------------------------");
 
