@@ -8,7 +8,7 @@
     <ProjectGuid>{24AC21EC-ACF0-4723-A103-BAB52BA99F5E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>ScreenRecording</RootNamespace>
-    <AssemblyName>ScreenRecording</AssemblyName>
+    <AssemblyName>无声录屏</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
