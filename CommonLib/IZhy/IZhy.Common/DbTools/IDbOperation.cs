@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IZhy.Common.AopProxy;
+using System;
 using System.Collections.Generic;
 using System.Data;
 
@@ -57,7 +58,7 @@ namespace IZhy.Common.DbTools
         /// </summary>
         /// <param name="sql">sql 语句或命令</param>
         /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
         dynamic QueryBySql(string sql, object param = null, int sqlExeTimeout = 20);
 
@@ -67,7 +68,7 @@ namespace IZhy.Common.DbTools
         /// <typeparam name="T"></typeparam>
         /// <param name="sql">sql 语句或命令</param>
         /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
         List<T> QueryBySql<T>(string sql, object param = null, int sqlExeTimeout = 20);
 
@@ -76,7 +77,7 @@ namespace IZhy.Common.DbTools
         /// </summary>
         /// <param name="sql">sql 语句或命令</param>
         /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
         DataTable QueryToDataTable(string sql, object param = null, int sqlExeTimeout = 20);
 
@@ -86,7 +87,7 @@ namespace IZhy.Common.DbTools
         /// </summary>
         /// <param name="sql">sql 语句或命令</param>
         /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
         object ExecuteScalar(string sql, object param = null, int sqlExeTimeout = 20);
 
@@ -96,7 +97,7 @@ namespace IZhy.Common.DbTools
         /// <typeparam name="T"></typeparam>
         /// <param name="sql">sql 语句或命令</param>
         /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
         T ExecuteScalar<T>(string sql, object param = null, int sqlExeTimeout = 20);
 
@@ -106,7 +107,7 @@ namespace IZhy.Common.DbTools
         /// </summary>
         /// <param name="sql">sql 语句或命令</param>
         /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
         List<dynamic> QueryMultiple(string sql, object param = null, int sqlExeTimeout = 20);
 
@@ -126,7 +127,7 @@ namespace IZhy.Common.DbTools
         /// </summary>
         /// <param name="sql">sql 语句或命令</param>
         /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
         dynamic QueryFirst(string sql, object param = null, int sqlExeTimeout = 20);
 
@@ -136,7 +137,7 @@ namespace IZhy.Common.DbTools
         /// <typeparam name="T"></typeparam>
         /// <param name="sql">sql 语句或命令</param>
         /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
         T QueryFirst<T>(string sql, object param = null, int sqlExeTimeout = 20);
 
@@ -147,7 +148,7 @@ namespace IZhy.Common.DbTools
         /// </summary>
         /// <param name="sql">sql 语句或命令</param>
         /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
         dynamic QuerySingle(string sql, object param = null, int sqlExeTimeout = 20);
 
@@ -158,7 +159,7 @@ namespace IZhy.Common.DbTools
         /// <typeparam name="T"></typeparam>
         /// <param name="sql">sql 语句或命令</param>
         /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
         T QuerySingle<T>(string sql, object param = null, int sqlExeTimeout = 20);
 
@@ -168,7 +169,7 @@ namespace IZhy.Common.DbTools
         /// </summary>
         /// <param name="sql">sql 语句或命令</param>
         /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象，匿名对象的数组或集合（在批量增、删、改时）</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
         int ExecuteSql(string sql, object param = null, int sqlExeTimeout = 20);
 
@@ -177,7 +178,7 @@ namespace IZhy.Common.DbTools
         /// </summary>
         /// <param name="pName">存储过程 名称</param>
         /// <param name="param">存储过程所需的参数；一般是匿名对象、字典集合、实体对象</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
         int ExecuteProcedure(string pName, object param = null, int sqlExeTimeout = 20);
 
@@ -207,7 +208,7 @@ namespace IZhy.Common.DbTools
         /// </summary>
         /// <param name="tableName">表名</param>
         /// <param name="dicFields">字段集合</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
         int ExeInsertSql(string tableName, Dictionary<string, object> dicFields, int sqlExeTimeout = 20);
 
@@ -216,7 +217,7 @@ namespace IZhy.Common.DbTools
         /// </summary>
         /// <param name="tableName">表名</param>
         /// <param name="listFields">字段集合（批量操作）</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
         int ExeBatchInsertSql(string tableName, List<Dictionary<string, object>> listFields, int sqlExeTimeout = 20);
 
@@ -227,7 +228,7 @@ namespace IZhy.Common.DbTools
         /// <param name="tableName">表名</param>
         /// <param name="dicFields">字段集合</param>
         /// <param name="dicWhere">条件集合</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
         int ExeUpdateSql(string tableName, Dictionary<string, object> dicFields,
             Dictionary<string, object> dicWhere, int sqlExeTimeout = 20);
@@ -249,7 +250,7 @@ namespace IZhy.Common.DbTools
         /// </summary>
         /// <param name="tableName">表名</param>
         /// <param name="dicWhere">条件集合</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
         int ExeDeleteSql(string tableName, Dictionary<string, object> dicWhere, int sqlExeTimeout = 20);
 
@@ -258,7 +259,7 @@ namespace IZhy.Common.DbTools
         /// </summary>
         /// <param name="tableName">表名</param>
         /// <param name="listWhere">条件集合（批量操作）</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
         int ExeBatchDeleteSql(string tableName, List<Dictionary<string, object>> listWhere, int sqlExeTimeout = 20);
 
@@ -268,7 +269,7 @@ namespace IZhy.Common.DbTools
         /// </summary>
         /// <param name="tableName">表名</param>
         /// <param name="dicWhere">条件集合</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
         bool CheckATableDataExist(string tableName, Dictionary<string, object> dicWhere, int sqlExeTimeout = 20);
 
@@ -279,7 +280,7 @@ namespace IZhy.Common.DbTools
         /// <param name="fields">字段列表</param>
         /// <param name="dicWhere">条件集合</param>
         /// <param name="orderBy">字段排序数组，例：new string[] { "Field1 DESC", "Field2 ASC" }</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
         dynamic SelectATableByANDEqualSign(string tableName, string[] fields, Dictionary<string, object> dicWhere, string[] orderBy = null, int sqlExeTimeout = 20);
 
@@ -291,7 +292,7 @@ namespace IZhy.Common.DbTools
         /// <param name="fields">字段列表</param>
         /// <param name="dicWhere">条件集合</param>
         /// <param name="orderBy">字段排序数组，例：new string[] { "Field1 DESC", "Field2 ASC" }</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
         List<T> SelectATableByANDEqualSign<T>(string tableName, string[] fields, Dictionary<string, object> dicWhere, string[] orderBy = null, int sqlExeTimeout = 20);
 
@@ -302,11 +303,32 @@ namespace IZhy.Common.DbTools
         /// <param name="fields">字段列表</param>
         /// <param name="dicWhere">条件集合</param>
         /// <param name="orderBy">字段排序数组，例：new string[] { "Field1 DESC", "Field2 ASC" }</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
         DataTable SelectATableByANDEqualSignToDt(string tableName, string[] fields, Dictionary<string, object> dicWhere, string[] orderBy = null, int sqlExeTimeout = 20);
 
 
         string ToString();
+
+
+        /// <summary>
+        /// 日志记录到数据库；【Log 专用方法】
+        /// </summary>
+        /// <param name="tableName">表名</param>
+        /// <param name="dicFields">字段集合</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
+        /// <returns></returns>
+        [IgnoreDecorator]
+        int LoggingToDatabase_IgnoreDecorator(string tableName, Dictionary<string, object> dicFields, int sqlExeTimeout = 20);
+
+        /// <summary>
+        /// 清理数据库中的日志记录；【Log 专用方法】
+        /// </summary>
+        /// <param name="sql">sql 语句或命令</param>
+        /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象，匿名对象的数组或集合（在批量增、删、改时）</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
+        /// <returns></returns>
+        [IgnoreDecorator]
+        int ClearLogsFromDatabase_IgnoreDecorator(string sql, object param = null, int sqlExeTimeout = 20);
     }
 }

@@ -38,22 +38,22 @@ namespace IZhy.Common.SysEntities
         /// <summary>
         /// 数据总页数
         /// </summary>
-        private int allPageCount = 0;
+        private int _allPageCount = 0;
 
         /// <summary>
         /// 当前页码号
         /// </summary>
-        private int pageNum = 1;
+        private int _pageNum = 1;
 
         /// <summary>
         /// 每页数据量
         /// </summary>
-        private int pageSize = DefaultPageSize;
+        private int _pageSize = DefaultPageSize;
 
         /// <summary>
         /// 发起分页查询的开始序号
         /// </summary>
-        private int startNum = 0;
+        private int _startNum = 0;
 
 
         /// <summary>
@@ -68,8 +68,8 @@ namespace IZhy.Common.SysEntities
         {
             get
             {
-                allPageCount = AllDataCount % PageSize == 0 ? AllDataCount / PageSize : (AllDataCount / PageSize) + 1;
-                return allPageCount;
+                _allPageCount = AllDataCount % PageSize == 0 ? AllDataCount / PageSize : (AllDataCount / PageSize) + 1;
+                return _allPageCount;
             }
         }
 
@@ -80,17 +80,17 @@ namespace IZhy.Common.SysEntities
         {
             get
             {
-                if (pageNum < 1)
+                if (_pageNum < 1)
                 {
-                    pageNum = 1;
+                    _pageNum = 1;
                 }
-                else if (pageNum > AllPageCount)
+                else if (_pageNum > AllPageCount)
                 {
-                    pageNum = AllPageCount;
+                    _pageNum = AllPageCount;
                 }
-                return pageNum;
+                return _pageNum;
             }
-            set { pageNum = value; }
+            set { _pageNum = value; }
         }
 
         /// <summary>
@@ -100,21 +100,21 @@ namespace IZhy.Common.SysEntities
         {
             get
             {
-                if (pageSize < 1)
+                if (_pageSize < 1)
                 {
-                    pageSize = DefaultPageSize;
+                    _pageSize = DefaultPageSize;
                 }
 
-                if (pageSize > 1000)
+                if (_pageSize > 1000)
                 {
-                    pageSize = 1000;
+                    _pageSize = 1000;
                 }
 
-                return pageSize;
+                return _pageSize;
             }
             set
             {
-                pageSize = value;
+                _pageSize = value;
             }
         }
 
@@ -127,21 +127,15 @@ namespace IZhy.Common.SysEntities
             {
                 if (PageNum < 2)
                 {
-                    startNum = 0;
+                    _startNum = 0;
                 }
                 else
                 {
-                    startNum = (PageNum - 1) * PageSize;
+                    _startNum = (PageNum - 1) * PageSize;
                 }
-                return startNum;
+                return _startNum;
             }
         }
-
-        /// <summary>
-        /// 分页查询的结果数据
-        /// </summary>
-        public object ResultData { get; set; } = null;
-
 
         /// <summary>
         /// 结果数据的数据量
@@ -172,6 +166,11 @@ namespace IZhy.Common.SysEntities
                 }
             }
         }
+
+        /// <summary>
+        /// 分页查询的结果数据
+        /// </summary>
+        public object ResultData { get; set; } = null;
 
 
         public override string ToString()

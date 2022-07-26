@@ -23,5 +23,10 @@ namespace IZhy.Common.Const
         /// 文件服务的 URL 根地址
         /// </summary>
         public const string FilesServiceUrlRoot = "FilesServiceUrlRoot";
+
+        /// <summary>
+        /// 是否启用数据库日志记录器
+        /// </summary>
+        public const string IsEnableDbLogRecorder = "IsEnableDbLogRecorder";
     }
 }

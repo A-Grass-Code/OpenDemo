@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace IZhy.Common.SimpleTools
+namespace AutoCrawlerTool.Common
 {
     /// <summary>
     /// 自动功能控制类

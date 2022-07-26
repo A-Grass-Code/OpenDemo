@@ -1,4 +1,5 @@
 ﻿using IZhy.Common.BasicTools;
+using System.Text;
 
 namespace IZhy.Common.SysEntities
 {
@@ -64,29 +65,22 @@ namespace IZhy.Common.SysEntities
         /// <returns></returns>
         public string ToHtml()
         {
-            string html = this.ToString();
+            StringBuilder sbHtml = new StringBuilder(this.ToString());
 
-            if (html.Contains("<"))
-            {
-                html = html.Replace("<", "&lt;");
-            }
+            sbHtml.Replace("<", "&lt;");
+            sbHtml.Replace(">", "&gt;");
 
-            if (html.Contains(">"))
-            {
-                html = html.Replace(">", "&gt;");
-            }
+            sbHtml.Replace(@"\r\n", "<br/>");
+            sbHtml.Replace(@"\n\r", "<br/>");
+            sbHtml.Replace(@"\n", "<br/>");
 
-            if (html.Contains(@"\r\n"))
-            {
-                html = html.Replace(@"\r\n", "<br/>");
-            }
+            // &nbsp; 字符：不断行的空白格，该空格占据的宽度受字体影响(一个字符宽度)。
+            // &ensp; 字符：相当全角状态键入半个“空格”键（半个汉字的宽度，一个字符宽度）。
+            // &emsp; 字符：相当全角状态键入“空格”键（1个汉字的宽度，两个字符宽度）。
 
-            if (html.Contains(@"\n"))
-            {
-                html = html.Replace(@"\n", "<br/>");
-            }
+            sbHtml.Replace(" ", "&ensp;");
 
-            return html;
+            return sbHtml.ToString();
         }
     }
 }

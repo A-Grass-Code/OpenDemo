@@ -154,6 +154,27 @@ namespace IZhy.Common.SimpleTools
         }
 
         /// <summary>
+        /// 终止定时任务
+        /// </summary>
+        /// <returns></returns>
+        public async Task StopAsync()
+        {
+            IsStop = true;
+
+            await Task.Run(async () =>
+            {
+                while (true)
+                {
+                    await Task.Delay(100);
+                    if (!IsStarted)
+                    {
+                        break;
+                    }
+                }
+            });
+        }
+
+        /// <summary>
         /// 暂停定时任务
         /// </summary>
         public void Pause()
@@ -162,11 +183,51 @@ namespace IZhy.Common.SimpleTools
         }
 
         /// <summary>
+        /// 暂停定时任务
+        /// </summary>
+        public async Task PauseAsync()
+        {
+            IsPause = true;
+
+            await Task.Run(async () =>
+            {
+                while (true)
+                {
+                    await Task.Delay(100);
+                    if (!IsRunning)
+                    {
+                        break;
+                    }
+                }
+            });
+        }
+
+        /// <summary>
         /// 继续定时任务
         /// </summary>
         public void GoOn()
         {
             IsPause = false;
+        }
+
+        /// <summary>
+        /// 继续定时任务
+        /// </summary>
+        public async Task GoOnAsync()
+        {
+            IsPause = false;
+
+            await Task.Run(async () =>
+            {
+                while (true)
+                {
+                    await Task.Delay(100);
+                    if (IsRunning)
+                    {
+                        break;
+                    }
+                }
+            });
         }
     }
 }

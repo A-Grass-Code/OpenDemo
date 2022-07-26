@@ -2,6 +2,7 @@
 using IZhy.Common.BasicTools;
 using System;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace IZhy.Common.DbTools
@@ -17,14 +18,20 @@ namespace IZhy.Common.DbTools
             {
                 _ = Task.Run(() =>
                 {
-                    string paramStr = string.Empty;
+                    StringBuilder paramSb = new StringBuilder();
                     for (int i = 1; i < paramArr.Length - 1; i++)
                     {
-                        paramStr += $"{JsonTool.ObjectToJson(paramArr[i], true)}{Environment.NewLine}";
+                        object temp = paramArr[i];
+                        if (temp == null)
+                        {
+                            continue;
+                        }
+                        paramSb.AppendLine(JsonTool.ObjectToJson(temp, true));
                     }
+                    paramSb.AppendLine($"sqlExeTimeout = {paramArr[paramArr.Length - 1]}");
 
                     LogsTool.WriteSQLLog(Convert.ToString(paramArr[0]),
-                                         paramStr,
+                                         paramSb.ToString(),
                                          $"{TargetImpClassFullName}.{method.Name}()",
                                          exeIdNum);
                 });

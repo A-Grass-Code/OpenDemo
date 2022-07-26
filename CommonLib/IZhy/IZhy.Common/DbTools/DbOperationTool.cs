@@ -1214,7 +1214,7 @@ namespace IZhy.Common.DbTools
         /// <param name="fields">字段列表</param>
         /// <param name="dicWhere">条件集合</param>
         /// <param name="orderBy">字段排序数组，例：new string[] { "Field1 DESC", "Field2 ASC" }</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
         public dynamic SelectATableByANDEqualSign(string tableName, string[] fields, Dictionary<string, object> dicWhere, string[] orderBy = null, int sqlExeTimeout = 20)
         {
@@ -1256,7 +1256,7 @@ namespace IZhy.Common.DbTools
         /// <param name="fields">字段列表</param>
         /// <param name="dicWhere">条件集合</param>
         /// <param name="orderBy">字段排序数组，例：new string[] { "Field1 DESC", "Field2 ASC" }</param>
-        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~120</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
         /// <returns></returns>
         public List<T> SelectATableByANDEqualSign<T>(string tableName, string[] fields, Dictionary<string, object> dicWhere, string[] orderBy = null, int sqlExeTimeout = 20)
         {
@@ -1350,6 +1350,63 @@ namespace IZhy.Common.DbTools
         public void Dispose()
         {
             Dis();
+        }
+
+
+        /// <summary>
+        /// 日志记录到数据库；【Log 专用方法】
+        /// </summary>
+        /// <param name="tableName">表名</param>
+        /// <param name="dicFields">字段集合</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
+        /// <returns></returns>
+        public int LoggingToDatabase_IgnoreDecorator(string tableName, Dictionary<string, object> dicFields, int sqlExeTimeout = 20)
+        {
+            if (string.IsNullOrWhiteSpace(tableName))
+            {
+                throw new Exception("表名错误");
+            }
+
+            if (dicFields == null || dicFields.Count < 1)
+            {
+                throw new Exception("字段参数错误");
+            }
+
+            string sql = InsertSql(tableName, dicFields);
+
+            try
+            {
+                // string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null
+                var rows = DbConn.Execute(sql, dicFields, Transaction, ValidSqlExeTime(sqlExeTimeout), CommandType.Text);
+                return rows;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"【DbOperationTool】 int LoggingToDatabase_IgnoreDecorator() 运行时发生异常。" +
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(dicFields)}", ex);
+            }
+        }
+
+        /// <summary>
+        /// 清理数据库中的日志记录；【Log 专用方法】
+        /// </summary>
+        /// <param name="sql">sql 语句或命令</param>
+        /// <param name="param">sql 执行时的参数；一般是匿名对象、字典集合、实体对象，匿名对象的数组或集合（在批量增、删、改时）</param>
+        /// <param name="sqlExeTimeout">sql 执行的超时时间，单位 秒，默认 20；有效值范围 1~60</param>
+        /// <returns></returns>
+        public int ClearLogsFromDatabase_IgnoreDecorator(string sql, object param = null, int sqlExeTimeout = 20)
+        {
+            try
+            {
+                // string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null
+                var rows = DbConn.Execute(sql, param, Transaction, ValidSqlExeTime(sqlExeTimeout), CommandType.Text);
+                return rows;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"【DbOperationTool】 int ClearLogsFromDatabase_IgnoreDecorator() 运行时发生异常。" +
+                    $"{Environment.NewLine}{ex.Message}{LogSql(sql)}{LogParam(param)}", ex);
+            }
         }
     }
 }

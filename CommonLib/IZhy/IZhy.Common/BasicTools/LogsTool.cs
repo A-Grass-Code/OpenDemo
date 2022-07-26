@@ -196,7 +196,7 @@ namespace IZhy.Common.BasicTools
         /// 日志写入时执行
         /// <para>默认 啥也不做</para>
         /// </summary>
-        public static Action<Dictionary<string, string>> LogWritingExe { private get; set; } = logInfo =>
+        public static Action<Dictionary<string, object>> LogWritingExe { private get; set; } = logInfo =>
         {
             // 默认 啥也不做
         };
@@ -224,10 +224,11 @@ namespace IZhy.Common.BasicTools
                     try
                     {
                         ClearBeforeSpecifiedDaysLog(LogSaveDays());
+                        WriteINFOLog("ClearBeforeSpecifiedDaysLog() 清理数据库中的日志记录，执行成功");
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        // 不做处理
+                        WriteEXLog("ClearBeforeSpecifiedDaysLog() 清理数据库中的日志记录，执行失败", ex);
                     }
                 });
             }, ERepetitionTimePeriod.Daily, new FixedTimed(0, 0, 2, 46, 8)).Startup();
@@ -267,20 +268,20 @@ namespace IZhy.Common.BasicTools
                 {
                     try
                     {
-                        LogWritingExe(logInfo as Dictionary<string, string>);
+                        LogWritingExe(logInfo as Dictionary<string, object>);
                     }
                     catch (Exception)
                     {
                         // 不做处理
                     }
-                }, new Dictionary<string, string>()
+                }, new Dictionary<string, object>()
                 {
                     ["LogType"] = logType.ToString(),
                     ["ExeMethodName"] = exeMethodName,
-                    ["MethodExeTime"] = methodExeTime,
-                    ["CustomMsg"] = customMsg,
-                    ["SysMsg"] = sysMsg,
-                    ["AddContent"] = addContent,
+                    ["MethodExeTime"] = Convert.ToDateTime(methodExeTime),
+                    ["CustomMsg"] = customMsg?.Trim(),
+                    ["SystemMsg"] = sysMsg?.Trim(),
+                    ["AddContent"] = addContent?.Trim(),
                     ["MethodExeIdNum"] = methodExeIdNum
                 });
 
@@ -321,20 +322,20 @@ namespace IZhy.Common.BasicTools
                 logContent.AppendLine("-");
 
                 logContent.AppendLine("自定义消息：");
-                logContent.AppendLine(customMsg);
+                logContent.AppendLine(customMsg?.Trim());
                 logContent.AppendLine("-");
 
                 if (!string.IsNullOrWhiteSpace(sysMsg))
                 {
                     logContent.AppendLine("系统消息：");
-                    logContent.AppendLine(sysMsg);
+                    logContent.AppendLine(sysMsg?.Trim());
                     logContent.AppendLine("-");
                 }
 
                 if (!string.IsNullOrWhiteSpace(addContent))
                 {
                     logContent.AppendLine("附加内容：");
-                    logContent.AppendLine(addContent);
+                    logContent.AppendLine(addContent?.Trim());
                     logContent.AppendLine("-");
                 }
 

@@ -171,7 +171,7 @@ namespace IZhy.Common.SimpleTools
 
 
         /// <summary>
-        /// DateTime 格式化为精确到毫秒6位数
+        /// DateTime 格式化为精确到毫秒6位数 （ 字符长度 26 ）
         /// <para>格式： "yyyy-MM-dd HH:mm:ss.ffffff"</para>
         /// </summary>
         /// <param name="dateTime"></param>
