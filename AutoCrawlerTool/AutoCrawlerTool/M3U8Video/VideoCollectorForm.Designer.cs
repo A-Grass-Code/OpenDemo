@@ -64,13 +64,13 @@ namespace AutoCrawlerTool.M3U8Video
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Txt_Url.Location = new System.Drawing.Point(137, 12);
             this.Txt_Url.Name = "Txt_Url";
-            this.Txt_Url.Size = new System.Drawing.Size(260, 23);
+            this.Txt_Url.Size = new System.Drawing.Size(321, 23);
             this.Txt_Url.TabIndex = 1;
             // 
             // Btn_Get
             // 
             this.Btn_Get.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_Get.Location = new System.Drawing.Point(635, 83);
+            this.Btn_Get.Location = new System.Drawing.Point(858, 83);
             this.Btn_Get.Name = "Btn_Get";
             this.Btn_Get.Size = new System.Drawing.Size(114, 29);
             this.Btn_Get.TabIndex = 12;
@@ -82,7 +82,7 @@ namespace AutoCrawlerTool.M3U8Video
             // 
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(412, 15);
+            this.label2.Location = new System.Drawing.Point(481, 15);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(80, 17);
             this.label2.TabIndex = 4;
@@ -92,7 +92,7 @@ namespace AutoCrawlerTool.M3U8Video
             // 
             this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(448, 47);
+            this.label3.Location = new System.Drawing.Point(517, 47);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(44, 17);
             this.label3.TabIndex = 8;
@@ -101,7 +101,7 @@ namespace AutoCrawlerTool.M3U8Video
             // Btn_SaveDirectory
             // 
             this.Btn_SaveDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_SaveDirectory.Location = new System.Drawing.Point(675, 11);
+            this.Btn_SaveDirectory.Location = new System.Drawing.Point(898, 11);
             this.Btn_SaveDirectory.Name = "Btn_SaveDirectory";
             this.Btn_SaveDirectory.Size = new System.Drawing.Size(34, 25);
             this.Btn_SaveDirectory.TabIndex = 6;
@@ -112,18 +112,18 @@ namespace AutoCrawlerTool.M3U8Video
             // Txt_SaveDirectory
             // 
             this.Txt_SaveDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Txt_SaveDirectory.Location = new System.Drawing.Point(498, 12);
+            this.Txt_SaveDirectory.Location = new System.Drawing.Point(567, 12);
             this.Txt_SaveDirectory.Name = "Txt_SaveDirectory";
             this.Txt_SaveDirectory.ReadOnly = true;
-            this.Txt_SaveDirectory.Size = new System.Drawing.Size(171, 23);
+            this.Txt_SaveDirectory.Size = new System.Drawing.Size(325, 23);
             this.Txt_SaveDirectory.TabIndex = 5;
             // 
             // Txt_VideoName
             // 
             this.Txt_VideoName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Txt_VideoName.Location = new System.Drawing.Point(498, 44);
+            this.Txt_VideoName.Location = new System.Drawing.Point(567, 44);
             this.Txt_VideoName.Name = "Txt_VideoName";
-            this.Txt_VideoName.Size = new System.Drawing.Size(251, 23);
+            this.Txt_VideoName.Size = new System.Drawing.Size(405, 23);
             this.Txt_VideoName.TabIndex = 9;
             // 
             // RTxt_Log
@@ -134,14 +134,14 @@ namespace AutoCrawlerTool.M3U8Video
             this.RTxt_Log.Location = new System.Drawing.Point(12, 118);
             this.RTxt_Log.Name = "RTxt_Log";
             this.RTxt_Log.ReadOnly = true;
-            this.RTxt_Log.Size = new System.Drawing.Size(737, 131);
+            this.RTxt_Log.Size = new System.Drawing.Size(960, 131);
             this.RTxt_Log.TabIndex = 16;
             this.RTxt_Log.Text = "";
             // 
             // Btn_OpenDirectory
             // 
             this.Btn_OpenDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_OpenDirectory.Location = new System.Drawing.Point(715, 11);
+            this.Btn_OpenDirectory.Location = new System.Drawing.Point(938, 11);
             this.Btn_OpenDirectory.Name = "Btn_OpenDirectory";
             this.Btn_OpenDirectory.Size = new System.Drawing.Size(34, 25);
             this.Btn_OpenDirectory.TabIndex = 7;
@@ -155,7 +155,7 @@ namespace AutoCrawlerTool.M3U8Video
             | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar1.Location = new System.Drawing.Point(137, 89);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(260, 17);
+            this.progressBar1.Size = new System.Drawing.Size(321, 17);
             this.progressBar1.TabIndex = 14;
             this.progressBar1.Visible = false;
             // 
@@ -163,7 +163,7 @@ namespace AutoCrawlerTool.M3U8Video
             // 
             this.Lab_Msg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Lab_Msg.AutoSize = true;
-            this.Lab_Msg.Location = new System.Drawing.Point(412, 89);
+            this.Lab_Msg.Location = new System.Drawing.Point(567, 89);
             this.Lab_Msg.Name = "Lab_Msg";
             this.Lab_Msg.Size = new System.Drawing.Size(80, 17);
             this.Lab_Msg.TabIndex = 15;
@@ -183,7 +183,7 @@ namespace AutoCrawlerTool.M3U8Video
             "20",
             "25",
             "30"});
-            this.ComBox_Speed.Location = new System.Drawing.Point(580, 85);
+            this.ComBox_Speed.Location = new System.Drawing.Point(803, 85);
             this.ComBox_Speed.Name = "ComBox_Speed";
             this.ComBox_Speed.Size = new System.Drawing.Size(39, 25);
             this.ComBox_Speed.TabIndex = 11;
@@ -192,7 +192,7 @@ namespace AutoCrawlerTool.M3U8Video
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(498, 89);
+            this.label4.Location = new System.Drawing.Point(721, 89);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(76, 17);
             this.label4.TabIndex = 10;
@@ -223,14 +223,14 @@ namespace AutoCrawlerTool.M3U8Video
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Txt_m3u8UrlReg.Location = new System.Drawing.Point(137, 44);
             this.Txt_m3u8UrlReg.Name = "Txt_m3u8UrlReg";
-            this.Txt_m3u8UrlReg.Size = new System.Drawing.Size(260, 23);
+            this.Txt_m3u8UrlReg.Size = new System.Drawing.Size(321, 23);
             this.Txt_m3u8UrlReg.TabIndex = 3;
             // 
             // VideoCollectorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(761, 261);
+            this.ClientSize = new System.Drawing.Size(984, 261);
             this.Controls.Add(this.Txt_m3u8UrlReg);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.Lab_ElapsedTime);
@@ -249,7 +249,7 @@ namespace AutoCrawlerTool.M3U8Video
             this.Controls.Add(this.Txt_Url);
             this.Controls.Add(this.label1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(600, 300);
+            this.MinimumSize = new System.Drawing.Size(800, 260);
             this.Name = "VideoCollectorForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "m3u8 视频采集器";

@@ -87,6 +87,7 @@ namespace AutoCrawlerTool.M3U8Video
             string m3u8UrlReg = this.Txt_m3u8UrlReg.Text.Trim();
 
             string cacheDirectory = $"{FilesTool.ProgramRootDirectoryOther("缓存")}{videoName}";
+            // 验证文件名是否合法（可用）
             try
             {
                 FilesTool.DeleteDirectory(cacheDirectory);
@@ -99,18 +100,40 @@ namespace AutoCrawlerTool.M3U8Video
                 MessageBox.Show($"文件名格式不正确", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
+            // 输入验证通过后，设置一些参数（本地化保存）
             SetVideoCollectorParams();
 
-            this.Btn_Get.Enabled = false;
-            this.progressBar1.Visible = true;
+            // 重置界面上的一些参数
+            {
+                this.Btn_Get.Enabled = false;
+                this.progressBar1.Visible = true;
 
-            this.RTxt_Log.Clear();
-            this.Lab_ElapsedTime.Text = $"耗时 0.000 s";
-            this.Lab_ElapsedTime.Visible = true;
-            this.Lab_Msg.Text = "视频保存？？";
-            this.Lab_Msg.Visible = true;
-            DateTime beginTime = DateTime.Now;
-            Task.Run(async () =>
+                this.RTxt_Log.Clear();
+                this.Lab_ElapsedTime.Text = $"耗时 0.000 s";
+                this.Lab_ElapsedTime.Visible = true;
+                this.Lab_Msg.Text = "视频保存？？";
+                this.Lab_Msg.Visible = true;
+            }
+
+            // 计算耗时
+            bool isFinish = false;
+            {
+                DateTime beginTime = DateTime.Now;
+                _ = Task.Run(async () =>
+                {
+                    while (!isFinish)
+                    {
+                        await Task.Delay(500);
+                        this.BeginInvoke(new Action(() =>
+                        {
+                            this.Lab_ElapsedTime.Text = $"耗时 {(DateTime.Now - beginTime).TotalSeconds:0.000} s";
+                        }));
+                    }
+                });
+            }
+
+            _ = Task.Run(async () =>
             {
                 try
                 {
@@ -173,13 +196,12 @@ namespace AutoCrawlerTool.M3U8Video
                         while (key <= index)
                         {
                             int count = 600; // 5分钟
-                            for (int i = 0; i < count; i++)
+                            for (int i = 0; i <= count; i++)
                             {
-                                this.BeginInvoke(new Action<int, DateTime>((n, bt) =>
+                                this.BeginInvoke(new Action<int>(n =>
                                 {
                                     this.progressBar1.Value = n;
-                                    this.Lab_ElapsedTime.Text = $"耗时 {(DateTime.Now - bt).TotalSeconds:0.000} s";
-                                }), autoAction.RunCompleted, beginTime);
+                                }), autoAction.RunCompleted);
 
                                 if (_tsVideos.ContainsKey(key) && _tsVideos.TryRemove(key, out byte[] v))
                                 {
@@ -225,6 +247,7 @@ namespace AutoCrawlerTool.M3U8Video
                 }
             }).ContinueWith(t =>
             {
+                isFinish = true;
                 this.BeginInvoke(new Action(() =>
                 {
                     this.Btn_Get.Enabled = true;

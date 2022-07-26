@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -15,13 +16,88 @@ namespace AutoCrawlerTool.M3U8Video
     {
         private static readonly HttpClient _http = new HttpClient();
 
+        private static async Task<List<string>> GetM3U8TextAsync(string m3u8Url, string m3u8FileSavePath)
+        {
+            m3u8Url = m3u8Url.Replace("\\", string.Empty);
+            List<string> lines = new List<string>();
+            for (int c = 0; c < 6; c++)
+            {
+                try
+                {
+                    Uri uri = new Uri(m3u8Url);
+                    using Stream stream = await _http.GetStreamAsync(m3u8Url);
+                    using StreamReader sr = new StreamReader(stream);
+                    FilesTool.WriteFileCreate(m3u8FileSavePath, await sr.ReadToEndAsync());
+                    lines = File.ReadAllLines(m3u8FileSavePath).ToList();
+                    for (int i = 0; i < lines.Count; i++)
+                    {
+                        lines[i] = lines[i].Trim();
+                    }
+
+                    if (lines.Contains("#EXT-X-ENDLIST"))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        string newUrl = lines.Find(x => x[..1] != "#");
+                        if (newUrl.Contains("http"))
+                        {
+                            m3u8Url = newUrl;
+                        }
+                        else
+                        {
+                            m3u8Url = $"{uri.Scheme}://{uri.Host}/{newUrl}";
+                        }
+
+                        lines.Clear();
+                        await Task.Delay(new Random().Next(500, 1500));
+                    }
+                }
+                catch (Exception)
+                {
+                    lines.Clear();
+                    await Task.Delay(new Random().Next(500, 1500));
+                }
+            }
+            return lines;
+        }
+
+        private static bool RunCmdCommand(string command)
+        {
+            try
+            {
+                using Process process = new Process();
+                process.StartInfo = new ProcessStartInfo(@"C:\Windows\system32\cmd.exe")
+                {
+                    UseShellExecute = false,
+                    RedirectStandardInput = true,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true, // 不显示程序窗口
+                };
+                process.Start();
+                process.StandardInput.WriteLine(command);
+                process.StandardInput.AutoFlush = true;
+                process.StandardInput.WriteLine("exit");
+                process.WaitForExit();
+                process.Close();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+
         public static async Task<List<string>> GetM3U8TsUrlsAsync(string resourceUrl, string m3u8UrlMatchReg, string m3u8FileSavePath)
         {
             List<string> tsUrls = new List<string>();
 
             string m3u8Url;
             {
-                if (resourceUrl.Substring(resourceUrl.Length - 5).ToLower() == ".m3u8")
+                if (resourceUrl[^5..].ToLower() == ".m3u8")
                 {
                     m3u8Url = resourceUrl;
                 }
@@ -32,18 +108,13 @@ namespace AutoCrawlerTool.M3U8Video
                     string html = await page.GetContentAsync();
                     m3u8Url = Regex.Match(html, m3u8UrlMatchReg, RegexOptions.Singleline).Groups[1].Value.Trim();
                 }
-
-                using Stream stream = await _http.GetStreamAsync(m3u8Url);
-                using StreamReader sr = new StreamReader(stream);
-
-                FilesTool.WriteFileCreate(m3u8FileSavePath, await sr.ReadToEndAsync());
             }
 
-            string[] lines = File.ReadAllLines(m3u8FileSavePath);
+            List<string> lines = await GetM3U8TextAsync(m3u8Url, m3u8FileSavePath);
             foreach (string item in lines)
             {
                 string url = item.Trim();
-                if (url.Substring(0, 1) != "#")
+                if (url[..1] != "#")
                 {
                     tsUrls.Add(url);
                 }
@@ -94,8 +165,6 @@ namespace AutoCrawlerTool.M3U8Video
 
         public static async Task<bool> TsFilesMergeMP4Async(string tsFilesDirectory, string outputVideoPath)
         {
-            bool isSucc = false;
-
             if (File.Exists(outputVideoPath))
             {
                 File.Delete(outputVideoPath);
@@ -107,45 +176,53 @@ namespace AutoCrawlerTool.M3U8Video
             }
 
             var files = Directory.GetFiles(tsFilesDirectory);
-            bool isTs = false;
+            bool isExistsTs = false;
             foreach (var item in files)
             {
                 FileInfo info = new FileInfo(item);
                 if (info.Extension.ToLower() == ".ts")
                 {
-                    isTs = true;
+                    isExistsTs = true;
                     break;
                 }
             }
-            if (!isTs)
-            {
+
+            if (isExistsTs)
+                FilesTool.CreateFilePathDirectory(outputVideoPath);
+            else
                 return false;
-            }
 
-            FilesTool.CreateFilePathDirectory(outputVideoPath);
-            try
+            bool isSucc = RunCmdCommand($"copy /b \"{tsFilesDirectory}\\*.ts\" \"{tsFilesDirectory}\\new.ts\"");
+            if (isSucc)
             {
-                using Process process = new Process();
-                process.StartInfo.FileName = "cmd.exe";
-                process.StartInfo.UseShellExecute = false;
-                process.StartInfo.RedirectStandardInput = true;
-                process.StartInfo.RedirectStandardOutput = true;
-                process.StartInfo.RedirectStandardError = true;
-                process.StartInfo.CreateNoWindow = true; // 不显示程序窗口
-                process.Start();
-
-                process.StandardInput.WriteLine($"copy /b {tsFilesDirectory}\\*.ts {tsFilesDirectory}\\new.ts");
                 for (int i = 0; i < 60; i++)
                 {
                     await Task.Delay(1000);
                     if (File.Exists($"{tsFilesDirectory}\\new.ts"))
                     {
+                        isSucc = true;
                         break;
                     }
+                    else
+                    {
+                        isSucc = false;
+                    }
                 }
+            }
+            else
+            {
+                return false;
+            }
 
-                process.StandardInput.WriteLine($"copy /b {tsFilesDirectory}\\*.ts {outputVideoPath}");
-                for (int i = 0; i < 300; i++)
+            if (!isSucc)
+            {
+                return false;
+            }
+
+            isSucc = RunCmdCommand($"copy /b \"{tsFilesDirectory}\\*.ts\" \"{outputVideoPath}\"");
+            if (isSucc)
+            {
+                for (int i = 0; i < 150; i++)
                 {
                     await Task.Delay(1000);
                     if (File.Exists(outputVideoPath))
@@ -153,13 +230,15 @@ namespace AutoCrawlerTool.M3U8Video
                         isSucc = true;
                         break;
                     }
+                    else
+                    {
+                        isSucc = false;
+                    }
                 }
-
-                process.Close();
             }
-            catch (Exception)
+            else
             {
-                isSucc = false;
+                return false;
             }
 
             if (isSucc)
@@ -176,8 +255,8 @@ namespace AutoCrawlerTool.M3U8Video
                     }
                 });
             }
-
             return isSucc;
         }
+
     }
 }

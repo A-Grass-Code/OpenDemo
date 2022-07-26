@@ -57,7 +57,7 @@ namespace AutoCrawlerTool
             var p = this.Location;
             this.Location = new Point(p.X + 200, 20);
 
-            Task.Run(async () =>
+            _ = Task.Run(async () =>
             {
                 bool isSucc = await CheckInternetTool.InternetIsUseableAsync();
                 if (!isSucc)
@@ -69,7 +69,7 @@ namespace AutoCrawlerTool
                 }
             });
 
-            Task.Run(async () =>
+            _ = Task.Run(async () =>
             {
                 while (true)
                 {
