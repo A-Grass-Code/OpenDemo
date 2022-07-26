@@ -4,7 +4,13 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+    <ApplicationIcon>logo\暗影蜘蛛侠.ico</ApplicationIcon>
+    <AssemblyName>自动爬行者工具</AssemblyName>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="logo\暗影蜘蛛侠.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\BrowserCrawler\BrowserCrawler.csproj" />

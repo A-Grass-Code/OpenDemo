@@ -29,6 +29,7 @@ namespace AutoCrawlerTool.M3U8Video
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VideoCollectorForm));
             this.label1 = new System.Windows.Forms.Label();
             this.Txt_Url = new System.Windows.Forms.TextBox();
             this.Btn_Get = new System.Windows.Forms.Button();
@@ -247,6 +248,7 @@ namespace AutoCrawlerTool.M3U8Video
             this.Controls.Add(this.Btn_Get);
             this.Controls.Add(this.Txt_Url);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(600, 300);
             this.Name = "VideoCollectorForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
