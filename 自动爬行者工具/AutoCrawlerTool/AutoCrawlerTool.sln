@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32630.194
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoCrawlerTool", "AutoCrawlerTool\AutoCrawlerTool.csproj", "{38FC3CD5-216C-42C4-9A02-6C3F480B159B}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrowserCrawler", "BrowserCrawler\BrowserCrawler.csproj", "{2F329349-4295-40FD-9B6F-372E556C0877}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoCrawlerTool", "AutoCrawlerTool\AutoCrawlerTool.csproj", "{F6DD381C-970B-4602-9CDB-6225A06E5791}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{38FC3CD5-216C-42C4-9A02-6C3F480B159B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{38FC3CD5-216C-42C4-9A02-6C3F480B159B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{38FC3CD5-216C-42C4-9A02-6C3F480B159B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{38FC3CD5-216C-42C4-9A02-6C3F480B159B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2F329349-4295-40FD-9B6F-372E556C0877}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2F329349-4295-40FD-9B6F-372E556C0877}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F329349-4295-40FD-9B6F-372E556C0877}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F329349-4295-40FD-9B6F-372E556C0877}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6DD381C-970B-4602-9CDB-6225A06E5791}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6DD381C-970B-4602-9CDB-6225A06E5791}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6DD381C-970B-4602-9CDB-6225A06E5791}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6DD381C-970B-4602-9CDB-6225A06E5791}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

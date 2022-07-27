@@ -51,11 +51,13 @@ namespace AutoCrawlerTool.M3U8Video
 
         private void Btn_SaveDirectory_Click(object sender, EventArgs e)
         {
-            using FolderBrowserDialog dialog = new FolderBrowserDialog();
-            dialog.Description = "选择视频保存的目录";
-            if (dialog.ShowDialog() == DialogResult.OK)
+            using (FolderBrowserDialog dialog = new FolderBrowserDialog())
             {
-                this.Txt_SaveDirectory.Text = dialog.SelectedPath;
+                dialog.Description = "选择视频保存的目录";
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    this.Txt_SaveDirectory.Text = dialog.SelectedPath;
+                }
             }
         }
 

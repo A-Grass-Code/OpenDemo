@@ -25,9 +25,11 @@ namespace AutoCrawlerTool.M3U8Video
                 try
                 {
                     Uri uri = new Uri(m3u8Url);
-                    using Stream stream = await _http.GetStreamAsync(m3u8Url);
-                    using StreamReader sr = new StreamReader(stream);
-                    FilesTool.WriteFileCreate(m3u8FileSavePath, await sr.ReadToEndAsync());
+                    using (Stream stream = await _http.GetStreamAsync(m3u8Url))
+                    {
+                        using (StreamReader sr = new StreamReader(stream))
+                            FilesTool.WriteFileCreate(m3u8FileSavePath, await sr.ReadToEndAsync());
+                    }
                     lines = File.ReadAllLines(m3u8FileSavePath).ToList();
                     for (int i = 0; i < lines.Count; i++)
                     {
@@ -40,7 +42,7 @@ namespace AutoCrawlerTool.M3U8Video
                     }
                     else
                     {
-                        string newUrl = lines.Find(x => x[..1] != "#");
+                        string newUrl = lines.Find(x => x.Substring(0, 1) != "#");
                         if (newUrl.Contains("http"))
                         {
                             m3u8Url = newUrl;
@@ -67,21 +69,23 @@ namespace AutoCrawlerTool.M3U8Video
         {
             try
             {
-                using Process process = new Process();
-                process.StartInfo = new ProcessStartInfo(@"C:\Windows\system32\cmd.exe")
+                using (Process process = new Process())
                 {
-                    UseShellExecute = false,
-                    RedirectStandardInput = true,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                    CreateNoWindow = true, // 不显示程序窗口
-                };
-                process.Start();
-                process.StandardInput.WriteLine(command);
-                process.StandardInput.AutoFlush = true;
-                process.StandardInput.WriteLine("exit");
-                process.WaitForExit();
-                process.Close();
+                    process.StartInfo = new ProcessStartInfo(@"C:\Windows\system32\cmd.exe")
+                    {
+                        UseShellExecute = false,
+                        RedirectStandardInput = true,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        CreateNoWindow = true, // 不显示程序窗口
+                    };
+                    process.Start();
+                    process.StandardInput.WriteLine(command);
+                    process.StandardInput.AutoFlush = true;
+                    process.StandardInput.WriteLine("exit");
+                    process.WaitForExit();
+                    process.Close();
+                }
                 return true;
             }
             catch (Exception)
@@ -97,16 +101,18 @@ namespace AutoCrawlerTool.M3U8Video
 
             string m3u8Url;
             {
-                if (resourceUrl[^5..].ToLower() == ".m3u8")
+                if (resourceUrl.Substring(resourceUrl.Length - 5).ToLower() == ".m3u8")
                 {
                     m3u8Url = resourceUrl;
                 }
                 else
                 {
-                    using Page page = await ChromiumBrowser.NewPageAndInitAsync(await MainForm.ChromiumAsync(), true);
-                    await page.GotoWaitAfterAsync(resourceUrl);
-                    string html = await page.GetContentAsync();
-                    m3u8Url = Regex.Match(html, m3u8UrlMatchReg, RegexOptions.Singleline).Groups[1].Value.Trim();
+                    using (Page page = await ChromiumBrowser.NewPageAndInitAsync(await MainForm.ChromiumAsync(), true))
+                    {
+                        await page.GotoWaitAfterAsync(resourceUrl);
+                        string html = await page.GetContentAsync();
+                        m3u8Url = Regex.Match(html, m3u8UrlMatchReg, RegexOptions.Singleline).Groups[1].Value.Trim();
+                    }
                 }
             }
 
@@ -114,7 +120,7 @@ namespace AutoCrawlerTool.M3U8Video
             foreach (string item in lines)
             {
                 string url = item.Trim();
-                if (url[..1] != "#")
+                if (url.Substring(0, 1) != "#")
                 {
                     tsUrls.Add(url);
                 }
@@ -131,9 +137,11 @@ namespace AutoCrawlerTool.M3U8Video
             FilesTool.CreateFilePathDirectory(filePath);
 
             // 把 byte[] 写入文件
-            using FileStream fs = new FileStream(filePath, FileMode.Append, FileAccess.Write);
-            using BinaryWriter bw = new BinaryWriter(fs);
-            bw.Write(bytes);
+            using (FileStream fs = new FileStream(filePath, FileMode.Append, FileAccess.Write))
+            {
+                using (BinaryWriter bw = new BinaryWriter(fs))
+                    bw.Write(bytes);
+            }
         }
 
         public static async Task<(bool, byte[])> DownloadVideoClipAsync(string url)
