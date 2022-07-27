@@ -141,6 +141,17 @@ namespace AutoCrawlerTool.M3U8Video
                 try
                 {
                     List<string> tsUrls = await VideoCollectorTool.GetM3U8TsUrlsAsync(resourceUrl, m3u8UrlReg, $"{cacheDirectory}\\m3u8.txt");
+                    if (tsUrls == null || tsUrls.Count < 1)
+                    {
+                        this.BeginInvoke(new Action(() =>
+                        {
+                            this.Lab_Msg.ForeColor = Color.Red;
+                            this.Lab_Msg.Text = "视频保存失败";
+                            MessageBox.Show($"获取视频片段(ts)资源失败", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }));
+                        return;
+                    }
+
                     List<object> tsInfoList = new List<object>();
                     int index = 0;
                     foreach (string item in tsUrls)
