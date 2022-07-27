@@ -216,6 +216,11 @@ namespace AutoCrawlerTool.M3U8Video
                                 {
                                     if (i >= count)
                                     {
+                                        this.BeginInvoke(new Action<int>(n =>
+                                        {
+                                            this.RTxt_Log.SelectionColor = Color.Red;
+                                            this.RTxt_Log.AppendText($"{n} - 视频片段写入失败 {Environment.NewLine}");
+                                        }), key);
                                         key++;
                                         break;
                                     }

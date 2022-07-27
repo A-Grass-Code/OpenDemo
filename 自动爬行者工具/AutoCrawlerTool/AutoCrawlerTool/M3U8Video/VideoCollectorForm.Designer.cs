@@ -215,6 +215,7 @@ namespace AutoCrawlerTool.M3U8Video
             // Lab_ElapsedTime
             // 
             this.Lab_ElapsedTime.AutoSize = true;
+            this.Lab_ElapsedTime.ForeColor = System.Drawing.Color.Blue;
             this.Lab_ElapsedTime.Location = new System.Drawing.Point(12, 142);
             this.Lab_ElapsedTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Lab_ElapsedTime.Name = "Lab_ElapsedTime";
