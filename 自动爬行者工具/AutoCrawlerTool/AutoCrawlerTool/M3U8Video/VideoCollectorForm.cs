@@ -71,6 +71,12 @@ namespace AutoCrawlerTool.M3U8Video
             Process.Start("explorer.exe", videoSaveDirectory + "\\");
         }
 
+        private void LinkLab_OpenUrl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            e.Link.LinkData = this.Txt_Url.Text.Trim();
+            Process.Start(e.Link.LinkData as string);
+        }
+
 
         private void Btn_Get_Click(object sender, EventArgs e)
         {
@@ -278,5 +284,6 @@ namespace AutoCrawlerTool.M3U8Video
                 }));
             });
         }
+
     }
 }

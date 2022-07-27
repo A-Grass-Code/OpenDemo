@@ -47,6 +47,7 @@ namespace AutoCrawlerTool.M3U8Video
             this.Lab_ElapsedTime = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.Txt_m3u8UrlReg = new System.Windows.Forms.TextBox();
+            this.LinkLab_OpenUrl = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // label1
@@ -66,7 +67,7 @@ namespace AutoCrawlerTool.M3U8Video
             this.Txt_Url.Location = new System.Drawing.Point(140, 12);
             this.Txt_Url.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Txt_Url.Name = "Txt_Url";
-            this.Txt_Url.Size = new System.Drawing.Size(541, 23);
+            this.Txt_Url.Size = new System.Drawing.Size(457, 23);
             this.Txt_Url.TabIndex = 1;
             // 
             // Btn_Get
@@ -244,11 +245,24 @@ namespace AutoCrawlerTool.M3U8Video
             this.Txt_m3u8UrlReg.Size = new System.Drawing.Size(541, 23);
             this.Txt_m3u8UrlReg.TabIndex = 3;
             // 
+            // LinkLab_OpenUrl
+            // 
+            this.LinkLab_OpenUrl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.LinkLab_OpenUrl.AutoSize = true;
+            this.LinkLab_OpenUrl.Location = new System.Drawing.Point(613, 15);
+            this.LinkLab_OpenUrl.Name = "LinkLab_OpenUrl";
+            this.LinkLab_OpenUrl.Size = new System.Drawing.Size(68, 17);
+            this.LinkLab_OpenUrl.TabIndex = 17;
+            this.LinkLab_OpenUrl.TabStop = true;
+            this.LinkLab_OpenUrl.Text = "浏览器打开";
+            this.LinkLab_OpenUrl.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLab_OpenUrl_LinkClicked);
+            // 
             // VideoCollectorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(694, 341);
+            this.Controls.Add(this.LinkLab_OpenUrl);
             this.Controls.Add(this.Txt_m3u8UrlReg);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.Lab_ElapsedTime);
@@ -299,5 +313,6 @@ namespace AutoCrawlerTool.M3U8Video
         private System.Windows.Forms.Label Lab_ElapsedTime;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox Txt_m3u8UrlReg;
+        private System.Windows.Forms.LinkLabel LinkLab_OpenUrl;
     }
 }
