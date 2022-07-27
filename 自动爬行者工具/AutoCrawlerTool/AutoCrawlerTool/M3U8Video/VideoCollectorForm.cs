@@ -108,12 +108,15 @@ namespace AutoCrawlerTool.M3U8Video
 
             // 重置界面上的一些参数
             {
+                this.RTxt_Log.Clear();
+
                 this.Btn_Get.Enabled = false;
                 this.progressBar1.Visible = true;
 
-                this.RTxt_Log.Clear();
                 this.Lab_ElapsedTime.Text = $"耗时 00m 00.00s";
                 this.Lab_ElapsedTime.Visible = true;
+
+                this.Lab_Msg.ForeColor = SystemColors.ControlText;
                 this.Lab_Msg.Text = "视频保存？？";
                 this.Lab_Msg.Visible = true;
             }
