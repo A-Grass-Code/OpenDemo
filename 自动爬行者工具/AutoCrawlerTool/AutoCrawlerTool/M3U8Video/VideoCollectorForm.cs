@@ -112,7 +112,7 @@ namespace AutoCrawlerTool.M3U8Video
                 this.progressBar1.Visible = true;
 
                 this.RTxt_Log.Clear();
-                this.Lab_ElapsedTime.Text = $"耗时 0.000 s";
+                this.Lab_ElapsedTime.Text = $"耗时 00m 00.00s";
                 this.Lab_ElapsedTime.Visible = true;
                 this.Lab_Msg.Text = "视频保存？？";
                 this.Lab_Msg.Visible = true;
@@ -129,7 +129,8 @@ namespace AutoCrawlerTool.M3U8Video
                         await Task.Delay(500);
                         this.BeginInvoke(new Action(() =>
                         {
-                            this.Lab_ElapsedTime.Text = $"耗时 {(DateTime.Now - beginTime).TotalSeconds:0.000} s";
+                            var times = DateTime.Now - beginTime;
+                            this.Lab_ElapsedTime.Text = $"耗时 {(int)times.TotalMinutes}m {times.Seconds}s";
                         }));
                     }
                 });

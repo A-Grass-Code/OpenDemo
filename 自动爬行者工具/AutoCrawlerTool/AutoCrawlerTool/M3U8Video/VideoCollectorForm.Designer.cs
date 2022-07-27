@@ -218,9 +218,9 @@ namespace AutoCrawlerTool.M3U8Video
             this.Lab_ElapsedTime.Location = new System.Drawing.Point(12, 142);
             this.Lab_ElapsedTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Lab_ElapsedTime.Name = "Lab_ElapsedTime";
-            this.Lab_ElapsedTime.Size = new System.Drawing.Size(109, 17);
+            this.Lab_ElapsedTime.Size = new System.Drawing.Size(102, 17);
             this.Lab_ElapsedTime.TabIndex = 13;
-            this.Lab_ElapsedTime.Text = "耗时 000m 00.00s";
+            this.Lab_ElapsedTime.Text = "耗时 00m 00.00s";
             this.Lab_ElapsedTime.Visible = false;
             // 
             // label5
