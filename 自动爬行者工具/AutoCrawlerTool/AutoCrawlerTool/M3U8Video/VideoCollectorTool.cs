@@ -16,15 +16,62 @@ namespace AutoCrawlerTool.M3U8Video
     {
         private static readonly HttpClient _http = new HttpClient();
 
-        private static async Task<List<string>> GetM3U8TextAsync(string m3u8Url, string m3u8FileSavePath)
+        private static bool RunCmdCommand(string command)
         {
-            m3u8Url = m3u8Url.Replace("\\", string.Empty);
+            try
+            {
+                using (Process process = new Process())
+                {
+                    process.StartInfo = new ProcessStartInfo(@"C:\Windows\system32\cmd.exe")
+                    {
+                        UseShellExecute = false,
+                        RedirectStandardInput = true,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        CreateNoWindow = true, // 不显示程序窗口
+                    };
+                    process.Start();
+                    process.StandardInput.WriteLine(command);
+                    process.StandardInput.AutoFlush = true;
+                    process.StandardInput.WriteLine("exit");
+                    process.WaitForExit();
+                    process.Close();
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+
+        public static async Task<List<string>> GetM3U8TsUrlsAsync(string resourceUrl, string m3u8UrlMatchReg, string m3u8FileSavePath)
+        {
+            string m3u8Url;
+            {
+                if (resourceUrl.Substring(resourceUrl.Length - 5).ToLower() == ".m3u8")
+                {
+                    m3u8Url = resourceUrl;
+                }
+                else
+                {
+                    using (Page page = await ChromiumBrowser.NewPageAndInitAsync(await MainForm.ChromiumAsync(), true))
+                    {
+                        await page.GotoWaitAfterAsync(resourceUrl);
+                        string html = await page.GetContentAsync();
+                        m3u8Url = Regex.Match(html, m3u8UrlMatchReg, RegexOptions.Singleline).Groups[1].Value.Trim().Replace("\\", string.Empty);
+                    }
+                }
+            }
+
             List<string> lines = new List<string>();
+            Uri uri = default;
             for (int c = 0; c < 6; c++)
             {
                 try
                 {
-                    Uri uri = new Uri(m3u8Url);
+                    uri = new Uri(m3u8Url);
                     using (Stream stream = await _http.GetStreamAsync(m3u8Url))
                     {
                         using (StreamReader sr = new StreamReader(stream))
@@ -62,70 +109,25 @@ namespace AutoCrawlerTool.M3U8Video
                     await Task.Delay(new Random().Next(500, 1500));
                 }
             }
-            return lines;
-        }
 
-        private static bool RunCmdCommand(string command)
-        {
-            try
-            {
-                using (Process process = new Process())
-                {
-                    process.StartInfo = new ProcessStartInfo(@"C:\Windows\system32\cmd.exe")
-                    {
-                        UseShellExecute = false,
-                        RedirectStandardInput = true,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true,
-                        CreateNoWindow = true, // 不显示程序窗口
-                    };
-                    process.Start();
-                    process.StandardInput.WriteLine(command);
-                    process.StandardInput.AutoFlush = true;
-                    process.StandardInput.WriteLine("exit");
-                    process.WaitForExit();
-                    process.Close();
-                }
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
-
-
-        public static async Task<List<string>> GetM3U8TsUrlsAsync(string resourceUrl, string m3u8UrlMatchReg, string m3u8FileSavePath)
-        {
             List<string> tsUrls = new List<string>();
-
-            string m3u8Url;
-            {
-                if (resourceUrl.Substring(resourceUrl.Length - 5).ToLower() == ".m3u8")
-                {
-                    m3u8Url = resourceUrl;
-                }
-                else
-                {
-                    using (Page page = await ChromiumBrowser.NewPageAndInitAsync(await MainForm.ChromiumAsync(), true))
-                    {
-                        await page.GotoWaitAfterAsync(resourceUrl);
-                        string html = await page.GetContentAsync();
-                        m3u8Url = Regex.Match(html, m3u8UrlMatchReg, RegexOptions.Singleline).Groups[1].Value.Trim();
-                    }
-                }
-            }
-
-            List<string> lines = await GetM3U8TextAsync(m3u8Url, m3u8FileSavePath);
             foreach (string item in lines)
             {
                 string url = item.Trim();
                 if (url.Substring(0, 1) != "#")
                 {
-                    tsUrls.Add(url);
+                    if (url.Contains("http"))
+                    {
+                        tsUrls.Add(url);
+                    }
+                    else
+                    {
+                        tsUrls.Add($"{uri?.Scheme}://{uri?.Host}/{url}");
+                    }
                 }
             }
 
+            lines.Clear();
             return tsUrls;
         }
 
