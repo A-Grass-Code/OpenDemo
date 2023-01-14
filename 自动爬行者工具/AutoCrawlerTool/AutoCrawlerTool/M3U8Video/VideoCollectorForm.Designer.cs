@@ -287,6 +287,7 @@ namespace AutoCrawlerTool.M3U8Video
             this.Name = "VideoCollectorForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "m3u8 视频采集器";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.VideoCollectorForm_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.VideoCollectorForm_FormClosed);
             this.Load += new System.EventHandler(this.VideoCollectorForm_Load);
             this.ResumeLayout(false);

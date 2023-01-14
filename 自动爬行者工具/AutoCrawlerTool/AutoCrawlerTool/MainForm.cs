@@ -55,7 +55,7 @@ namespace AutoCrawlerTool
         private void MainForm_Load(object sender, EventArgs e)
         {
             var p = this.Location;
-            this.Location = new Point(p.X + 200, 20);
+            this.Location = new Point(p.X, 20);
 
             _ = Task.Run(async () =>
             {
