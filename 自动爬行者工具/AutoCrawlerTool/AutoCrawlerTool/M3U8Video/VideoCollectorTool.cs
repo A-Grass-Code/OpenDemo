@@ -48,6 +48,7 @@ namespace AutoCrawlerTool.M3U8Video
 
         public static async Task<List<string>> GetM3U8TsUrlsAsync(string resourceUrl, string m3u8UrlMatchReg, string m3u8FileSavePath)
         {
+            resourceUrl = resourceUrl.Replace("\\", string.Empty);
             string m3u8Url;
             {
                 if (resourceUrl.Substring(resourceUrl.Length - 5).ToLower() == ".m3u8")
