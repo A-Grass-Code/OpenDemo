@@ -38,9 +38,15 @@ namespace AutoCrawlerTool.M3U8Video
 
 
         public string ResourceUrl { get; set; } = string.Empty;
+
+        public string ResourceDirectoryUrl { get; set; } = string.Empty;
+
         public string SaveDirectory { get; set; } = string.Empty;
+
         public string SaveName { get; set; } = string.Empty;
+
         public string M3u8UrlMatchReg { get; set; } = string.Empty;
+
         public int DownSpeedIndex { get; set; } = 2;
     }
 }

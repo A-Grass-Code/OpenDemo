@@ -29,6 +29,7 @@ namespace AutoCrawlerTool.M3U8Video
         {
             VideoCollectorParams collectorParams = new VideoCollectorParams();
             collectorParams.ResourceUrl = this.Txt_Url.Text;
+            collectorParams.ResourceDirectoryUrl = this.Txt_directoryUrl.Text;
             collectorParams.SaveDirectory = this.Txt_SaveDirectory.Text;
             collectorParams.SaveName = this.Txt_VideoName.Text;
             collectorParams.M3u8UrlMatchReg = this.Txt_m3u8UrlReg.Text;
@@ -41,6 +42,7 @@ namespace AutoCrawlerTool.M3U8Video
         {
             VideoCollectorParams collectorParams = VideoCollectorParams.GetParams();
             this.Txt_Url.Text = collectorParams.ResourceUrl;
+            this.Txt_directoryUrl.Text = collectorParams.ResourceDirectoryUrl;
             this.Txt_SaveDirectory.Text = collectorParams.SaveDirectory;
             this.Txt_VideoName.Text = collectorParams.SaveName;
             this.Txt_m3u8UrlReg.Text = collectorParams.M3u8UrlMatchReg;
@@ -97,6 +99,7 @@ namespace AutoCrawlerTool.M3U8Video
         private void Btn_Get_Click(object sender, EventArgs e)
         {
             string resourceUrl = this.Txt_Url.Text.Trim();
+            string resourceDirectoryUrl = this.Txt_directoryUrl.Text.Trim();
             string videoSaveDirectory = this.Txt_SaveDirectory.Text.Trim();
             string videoName = this.Txt_VideoName.Text.Trim();
 
@@ -165,7 +168,10 @@ namespace AutoCrawlerTool.M3U8Video
             {
                 try
                 {
-                    List<string> tsUrls = await VideoCollectorTool.GetM3U8TsUrlsAsync(resourceUrl, m3u8UrlReg, $"{cacheDirectory}\\m3u8.txt");
+                    List<string> tsUrls = await VideoCollectorTool.GetM3U8TsUrlsAsync(resourceUrl,
+                        m3u8UrlReg,
+                        $"{cacheDirectory}\\m3u8.txt",
+                        resourceDirectoryUrl);
                     if (tsUrls == null || tsUrls.Count < 1)
                     {
                         this.BeginInvoke(new Action(() =>

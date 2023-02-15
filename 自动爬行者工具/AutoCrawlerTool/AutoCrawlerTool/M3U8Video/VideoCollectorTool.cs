@@ -46,7 +46,8 @@ namespace AutoCrawlerTool.M3U8Video
         }
 
 
-        public static async Task<List<string>> GetM3U8TsUrlsAsync(string resourceUrl, string m3u8UrlMatchReg, string m3u8FileSavePath)
+        public static async Task<List<string>> GetM3U8TsUrlsAsync(string resourceUrl, string m3u8UrlMatchReg, string m3u8FileSavePath,
+            string resourceDirectoryUrl = null)
         {
             resourceUrl = resourceUrl.Replace("\\", string.Empty);
             string m3u8Url;
@@ -117,6 +118,11 @@ namespace AutoCrawlerTool.M3U8Video
                 string url = item.Trim();
                 if (url.Substring(0, 1) != "#")
                 {
+                    if (!string.IsNullOrWhiteSpace(resourceDirectoryUrl))
+                    {
+                        url = resourceDirectoryUrl.Trim() + url;
+                    }
+
                     if (url.Contains("http"))
                     {
                         tsUrls.Add(url);

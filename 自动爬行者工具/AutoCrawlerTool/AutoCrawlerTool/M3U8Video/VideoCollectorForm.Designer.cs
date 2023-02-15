@@ -48,6 +48,8 @@ namespace AutoCrawlerTool.M3U8Video
             this.label5 = new System.Windows.Forms.Label();
             this.Txt_m3u8UrlReg = new System.Windows.Forms.TextBox();
             this.LinkLab_OpenUrl = new System.Windows.Forms.LinkLabel();
+            this.label6 = new System.Windows.Forms.Label();
+            this.Txt_directoryUrl = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -56,28 +58,28 @@ namespace AutoCrawlerTool.M3U8Video
             this.label1.Location = new System.Drawing.Point(13, 15);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 17);
+            this.label1.Size = new System.Drawing.Size(107, 17);
             this.label1.TabIndex = 0;
-            this.label1.Text = "视频资源链接";
+            this.label1.Text = "URL 视频资源链接";
             // 
             // Txt_Url
             // 
             this.Txt_Url.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Txt_Url.Location = new System.Drawing.Point(140, 12);
+            this.Txt_Url.Location = new System.Drawing.Point(149, 12);
             this.Txt_Url.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Txt_Url.Name = "Txt_Url";
-            this.Txt_Url.Size = new System.Drawing.Size(457, 23);
+            this.Txt_Url.Size = new System.Drawing.Size(489, 23);
             this.Txt_Url.TabIndex = 1;
             // 
             // Btn_Get
             // 
             this.Btn_Get.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_Get.Location = new System.Drawing.Point(605, 137);
+            this.Btn_Get.Location = new System.Drawing.Point(646, 178);
             this.Btn_Get.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Btn_Get.Name = "Btn_Get";
-            this.Btn_Get.Size = new System.Drawing.Size(76, 28);
-            this.Btn_Get.TabIndex = 12;
+            this.Btn_Get.Size = new System.Drawing.Size(75, 28);
+            this.Btn_Get.TabIndex = 18;
             this.Btn_Get.Text = "获 取";
             this.Btn_Get.UseVisualStyleBackColor = true;
             this.Btn_Get.Click += new System.EventHandler(this.Btn_Get_Click);
@@ -85,31 +87,31 @@ namespace AutoCrawlerTool.M3U8Video
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 73);
+            this.label2.Location = new System.Drawing.Point(13, 111);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(80, 17);
-            this.label2.TabIndex = 4;
+            this.label2.TabIndex = 7;
             this.label2.Text = "视频保存目录";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 102);
+            this.label3.Location = new System.Drawing.Point(13, 140);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(44, 17);
-            this.label3.TabIndex = 8;
+            this.label3.TabIndex = 11;
             this.label3.Text = "视频名";
             // 
             // Btn_SaveDirectory
             // 
             this.Btn_SaveDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_SaveDirectory.Location = new System.Drawing.Point(605, 69);
+            this.Btn_SaveDirectory.Location = new System.Drawing.Point(645, 107);
             this.Btn_SaveDirectory.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Btn_SaveDirectory.Name = "Btn_SaveDirectory";
             this.Btn_SaveDirectory.Size = new System.Drawing.Size(34, 25);
-            this.Btn_SaveDirectory.TabIndex = 6;
+            this.Btn_SaveDirectory.TabIndex = 9;
             this.Btn_SaveDirectory.Text = "...";
             this.Btn_SaveDirectory.UseVisualStyleBackColor = true;
             this.Btn_SaveDirectory.Click += new System.EventHandler(this.Btn_SaveDirectory_Click);
@@ -118,44 +120,44 @@ namespace AutoCrawlerTool.M3U8Video
             // 
             this.Txt_SaveDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Txt_SaveDirectory.Location = new System.Drawing.Point(140, 70);
+            this.Txt_SaveDirectory.Location = new System.Drawing.Point(149, 108);
             this.Txt_SaveDirectory.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Txt_SaveDirectory.Name = "Txt_SaveDirectory";
             this.Txt_SaveDirectory.ReadOnly = true;
-            this.Txt_SaveDirectory.Size = new System.Drawing.Size(457, 23);
-            this.Txt_SaveDirectory.TabIndex = 5;
+            this.Txt_SaveDirectory.Size = new System.Drawing.Size(488, 23);
+            this.Txt_SaveDirectory.TabIndex = 8;
             // 
             // Txt_VideoName
             // 
             this.Txt_VideoName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Txt_VideoName.Location = new System.Drawing.Point(140, 99);
+            this.Txt_VideoName.Location = new System.Drawing.Point(149, 137);
             this.Txt_VideoName.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Txt_VideoName.Name = "Txt_VideoName";
-            this.Txt_VideoName.Size = new System.Drawing.Size(541, 23);
-            this.Txt_VideoName.TabIndex = 9;
+            this.Txt_VideoName.Size = new System.Drawing.Size(572, 23);
+            this.Txt_VideoName.TabIndex = 12;
             // 
             // RTxt_Log
             // 
             this.RTxt_Log.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.RTxt_Log.Location = new System.Drawing.Point(12, 171);
+            this.RTxt_Log.Location = new System.Drawing.Point(12, 221);
             this.RTxt_Log.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.RTxt_Log.Name = "RTxt_Log";
             this.RTxt_Log.ReadOnly = true;
-            this.RTxt_Log.Size = new System.Drawing.Size(669, 159);
-            this.RTxt_Log.TabIndex = 16;
+            this.RTxt_Log.Size = new System.Drawing.Size(709, 179);
+            this.RTxt_Log.TabIndex = 19;
             this.RTxt_Log.Text = "";
             // 
             // Btn_OpenDirectory
             // 
             this.Btn_OpenDirectory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Btn_OpenDirectory.Location = new System.Drawing.Point(647, 69);
+            this.Btn_OpenDirectory.Location = new System.Drawing.Point(687, 107);
             this.Btn_OpenDirectory.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Btn_OpenDirectory.Name = "Btn_OpenDirectory";
             this.Btn_OpenDirectory.Size = new System.Drawing.Size(34, 25);
-            this.Btn_OpenDirectory.TabIndex = 7;
+            this.Btn_OpenDirectory.TabIndex = 10;
             this.Btn_OpenDirectory.Text = "O";
             this.Btn_OpenDirectory.UseVisualStyleBackColor = true;
             this.Btn_OpenDirectory.Click += new System.EventHandler(this.Btn_OpenDirectory_Click);
@@ -164,10 +166,10 @@ namespace AutoCrawlerTool.M3U8Video
             // 
             this.progressBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.progressBar1.Location = new System.Drawing.Point(140, 139);
+            this.progressBar1.Location = new System.Drawing.Point(149, 180);
             this.progressBar1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(238, 23);
+            this.progressBar1.Size = new System.Drawing.Size(270, 23);
             this.progressBar1.TabIndex = 14;
             this.progressBar1.Visible = false;
             // 
@@ -175,7 +177,7 @@ namespace AutoCrawlerTool.M3U8Video
             // 
             this.Lab_Msg.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Lab_Msg.AutoSize = true;
-            this.Lab_Msg.Location = new System.Drawing.Point(386, 142);
+            this.Lab_Msg.Location = new System.Drawing.Point(427, 183);
             this.Lab_Msg.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Lab_Msg.Name = "Lab_Msg";
             this.Lab_Msg.Size = new System.Drawing.Size(80, 17);
@@ -196,28 +198,28 @@ namespace AutoCrawlerTool.M3U8Video
             "20",
             "25",
             "30"});
-            this.ComBox_Speed.Location = new System.Drawing.Point(558, 138);
+            this.ComBox_Speed.Location = new System.Drawing.Point(599, 179);
             this.ComBox_Speed.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.ComBox_Speed.Name = "ComBox_Speed";
             this.ComBox_Speed.Size = new System.Drawing.Size(39, 25);
-            this.ComBox_Speed.TabIndex = 11;
+            this.ComBox_Speed.TabIndex = 17;
             // 
             // label4
             // 
             this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(474, 142);
+            this.label4.Location = new System.Drawing.Point(515, 183);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(76, 17);
-            this.label4.TabIndex = 10;
+            this.label4.TabIndex = 16;
             this.label4.Text = "下载倍速   X";
             // 
             // Lab_ElapsedTime
             // 
             this.Lab_ElapsedTime.AutoSize = true;
             this.Lab_ElapsedTime.ForeColor = System.Drawing.Color.Blue;
-            this.Lab_ElapsedTime.Location = new System.Drawing.Point(12, 142);
+            this.Lab_ElapsedTime.Location = new System.Drawing.Point(13, 183);
             this.Lab_ElapsedTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.Lab_ElapsedTime.Name = "Lab_ElapsedTime";
             this.Lab_ElapsedTime.Size = new System.Drawing.Size(102, 17);
@@ -232,36 +234,57 @@ namespace AutoCrawlerTool.M3U8Video
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(119, 17);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "m3u8 URL 正则匹配";
+            this.label5.TabIndex = 3;
+            this.label5.Text = "URL m3u8 正则匹配";
             // 
             // Txt_m3u8UrlReg
             // 
             this.Txt_m3u8UrlReg.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Txt_m3u8UrlReg.Location = new System.Drawing.Point(140, 41);
+            this.Txt_m3u8UrlReg.Location = new System.Drawing.Point(149, 41);
             this.Txt_m3u8UrlReg.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Txt_m3u8UrlReg.Name = "Txt_m3u8UrlReg";
-            this.Txt_m3u8UrlReg.Size = new System.Drawing.Size(541, 23);
-            this.Txt_m3u8UrlReg.TabIndex = 3;
+            this.Txt_m3u8UrlReg.Size = new System.Drawing.Size(572, 23);
+            this.Txt_m3u8UrlReg.TabIndex = 4;
             // 
             // LinkLab_OpenUrl
             // 
             this.LinkLab_OpenUrl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.LinkLab_OpenUrl.AutoSize = true;
-            this.LinkLab_OpenUrl.Location = new System.Drawing.Point(613, 15);
+            this.LinkLab_OpenUrl.Location = new System.Drawing.Point(653, 15);
             this.LinkLab_OpenUrl.Name = "LinkLab_OpenUrl";
             this.LinkLab_OpenUrl.Size = new System.Drawing.Size(68, 17);
-            this.LinkLab_OpenUrl.TabIndex = 17;
+            this.LinkLab_OpenUrl.TabIndex = 20;
             this.LinkLab_OpenUrl.TabStop = true;
             this.LinkLab_OpenUrl.Text = "浏览器打开";
             this.LinkLab_OpenUrl.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.LinkLab_OpenUrl_LinkClicked);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(13, 73);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(83, 17);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "URL 资源目录";
+            // 
+            // Txt_directoryUrl
+            // 
+            this.Txt_directoryUrl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.Txt_directoryUrl.Location = new System.Drawing.Point(149, 70);
+            this.Txt_directoryUrl.Name = "Txt_directoryUrl";
+            this.Txt_directoryUrl.Size = new System.Drawing.Size(572, 23);
+            this.Txt_directoryUrl.TabIndex = 6;
             // 
             // VideoCollectorForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(694, 341);
+            this.ClientSize = new System.Drawing.Size(734, 411);
+            this.Controls.Add(this.Txt_directoryUrl);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.LinkLab_OpenUrl);
             this.Controls.Add(this.Txt_m3u8UrlReg);
             this.Controls.Add(this.label5);
@@ -283,7 +306,7 @@ namespace AutoCrawlerTool.M3U8Video
             this.Font = new System.Drawing.Font("微软雅黑", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.MinimumSize = new System.Drawing.Size(550, 300);
+            this.MinimumSize = new System.Drawing.Size(700, 400);
             this.Name = "VideoCollectorForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "m3u8 视频采集器";
@@ -315,5 +338,7 @@ namespace AutoCrawlerTool.M3U8Video
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox Txt_m3u8UrlReg;
         private System.Windows.Forms.LinkLabel LinkLab_OpenUrl;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox Txt_directoryUrl;
     }
 }
