@@ -169,9 +169,9 @@ namespace AutoCrawlerTool.M3U8Video
                 try
                 {
                     List<string> tsUrls = null;
-                    for (int i = 0; i < 10; i++)
+                    for (int i = 0; i < 5; i++)
                     {
-                        await Task.Delay(new Random().Next(2000, 5000));
+                        await Task.Delay(new Random().Next(2000, 3000));
                         try
                         {
                             tsUrls = await VideoCollectorTool.GetM3U8TsUrlsAsync(
