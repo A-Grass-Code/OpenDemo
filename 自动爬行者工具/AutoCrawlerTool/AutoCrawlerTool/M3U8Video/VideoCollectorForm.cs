@@ -168,10 +168,33 @@ namespace AutoCrawlerTool.M3U8Video
             {
                 try
                 {
-                    List<string> tsUrls = await VideoCollectorTool.GetM3U8TsUrlsAsync(resourceUrl,
-                        m3u8UrlReg,
-                        $"{cacheDirectory}\\m3u8.txt",
-                        resourceDirectoryUrl);
+                    List<string> tsUrls = null;
+                    for (int i = 0; i < 10; i++)
+                    {
+                        await Task.Delay(new Random().Next(2000, 5000));
+                        try
+                        {
+                            tsUrls = await VideoCollectorTool.GetM3U8TsUrlsAsync(
+                                                resourceUrl,
+                                                m3u8UrlReg,
+                                                $"{cacheDirectory}\\m3u8.txt",
+                                                resourceDirectoryUrl);
+                        }
+                        catch (Exception)
+                        {
+                            continue;
+                        }
+
+                        if (tsUrls == null || tsUrls.Count < 1)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
                     if (tsUrls == null || tsUrls.Count < 1)
                     {
                         this.BeginInvoke(new Action(() =>

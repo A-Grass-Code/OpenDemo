@@ -69,7 +69,7 @@ namespace AutoCrawlerTool.M3U8Video
 
             List<string> lines = new List<string>();
             Uri uri = default;
-            for (int c = 0; c < 6; c++)
+            for (int c = 0; c < 5; c++)
             {
                 try
                 {
