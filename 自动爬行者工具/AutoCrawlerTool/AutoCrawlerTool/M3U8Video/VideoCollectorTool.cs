@@ -156,7 +156,7 @@ namespace AutoCrawlerTool.M3U8Video
         public static async Task<(bool, byte[])> DownloadVideoClipAsync(string url)
         {
             byte[] res = null;
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 10; i++)
             {
                 try
                 {
@@ -167,7 +167,7 @@ namespace AutoCrawlerTool.M3U8Video
                 {
                     res = null;
                 }
-                await Task.Delay(new Random().Next(1000, 2000));
+                await Task.Delay(new Random().Next(2000, 3000));
             }
 
             if (res == null || res.Length < 1)
