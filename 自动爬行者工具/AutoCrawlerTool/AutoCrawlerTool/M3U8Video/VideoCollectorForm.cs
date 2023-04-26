@@ -20,10 +20,16 @@ namespace AutoCrawlerTool.M3U8Video
 
         private readonly ConcurrentDictionary<int, byte[]> _tsVideos = new ConcurrentDictionary<int, byte[]>();
 
+        private bool _isFinish = true;
+
+        private AutoActionControl _getVideoAutoAction;
+
+
         private void SetVideoCollectorParams()
         {
             VideoCollectorParams collectorParams = new VideoCollectorParams();
             collectorParams.ResourceUrl = this.Txt_Url.Text;
+            collectorParams.ResourceDirectoryUrl = this.Txt_directoryUrl.Text;
             collectorParams.SaveDirectory = this.Txt_SaveDirectory.Text;
             collectorParams.SaveName = this.Txt_VideoName.Text;
             collectorParams.M3u8UrlMatchReg = this.Txt_m3u8UrlReg.Text;
@@ -36,6 +42,7 @@ namespace AutoCrawlerTool.M3U8Video
         {
             VideoCollectorParams collectorParams = VideoCollectorParams.GetParams();
             this.Txt_Url.Text = collectorParams.ResourceUrl;
+            this.Txt_directoryUrl.Text = collectorParams.ResourceDirectoryUrl;
             this.Txt_SaveDirectory.Text = collectorParams.SaveDirectory;
             this.Txt_VideoName.Text = collectorParams.SaveName;
             this.Txt_m3u8UrlReg.Text = collectorParams.M3u8UrlMatchReg;
@@ -46,6 +53,18 @@ namespace AutoCrawlerTool.M3U8Video
         {
             MainForm.CollectorFormCount--;
             SetVideoCollectorParams();
+        }
+
+        private void VideoCollectorForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!_isFinish)
+            {
+                if (MessageBox.Show("视频采集下载任务尚未完成！\n确定要关闭吗？",
+                    "提示", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2) != DialogResult.Yes)
+                {
+                    e.Cancel = true;
+                }
+            }
         }
 
 
@@ -77,10 +96,10 @@ namespace AutoCrawlerTool.M3U8Video
             Process.Start(e.Link.LinkData as string);
         }
 
-
         private void Btn_Get_Click(object sender, EventArgs e)
         {
             string resourceUrl = this.Txt_Url.Text.Trim();
+            string resourceDirectoryUrl = this.Txt_directoryUrl.Text.Trim();
             string videoSaveDirectory = this.Txt_SaveDirectory.Text.Trim();
             string videoName = this.Txt_VideoName.Text.Trim();
 
@@ -128,12 +147,12 @@ namespace AutoCrawlerTool.M3U8Video
             }
 
             // 计算耗时
-            bool isFinish = false;
+            _isFinish = false;
             {
                 DateTime beginTime = DateTime.Now;
                 _ = Task.Run(async () =>
                 {
-                    while (!isFinish)
+                    while (!_isFinish)
                     {
                         await Task.Delay(500);
                         this.BeginInvoke(new Action(() =>
@@ -149,7 +168,33 @@ namespace AutoCrawlerTool.M3U8Video
             {
                 try
                 {
-                    List<string> tsUrls = await VideoCollectorTool.GetM3U8TsUrlsAsync(resourceUrl, m3u8UrlReg, $"{cacheDirectory}\\m3u8.txt");
+                    List<string> tsUrls = null;
+                    for (int i = 0; i < 5; i++)
+                    {
+                        await Task.Delay(new Random().Next(2000, 3000));
+                        try
+                        {
+                            tsUrls = await VideoCollectorTool.GetM3U8TsUrlsAsync(
+                                                resourceUrl,
+                                                m3u8UrlReg,
+                                                $"{cacheDirectory}\\m3u8.txt",
+                                                resourceDirectoryUrl);
+                        }
+                        catch (Exception)
+                        {
+                            continue;
+                        }
+
+                        if (tsUrls == null || tsUrls.Count < 1)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
                     if (tsUrls == null || tsUrls.Count < 1)
                     {
                         this.BeginInvoke(new Action(() =>
@@ -208,7 +253,7 @@ namespace AutoCrawlerTool.M3U8Video
                             this.RTxt_Log.AppendText($"{x.Index} - {x.Msg} - {x.Url}{Environment.NewLine}");
                         }), (ts.Index, msg, ts.Url));
                     }
-                    var autoAction = new AutoActionControl(func, tsInfoList, downSpeed, 1000).StartExecute();
+                    _getVideoAutoAction = new AutoActionControl(func, tsInfoList, downSpeed, 1000).StartExecute();
                     #endregion
 
                     #region 视频片段写入 .ts 文件
@@ -224,7 +269,7 @@ namespace AutoCrawlerTool.M3U8Video
                                 this.BeginInvoke(new Action<int>(n =>
                                 {
                                     this.progressBar1.Value = n;
-                                }), autoAction.RunCompleted);
+                                }), _getVideoAutoAction.RunCompleted);
 
                                 if (_tsVideos.ContainsKey(key) && _tsVideos.TryRemove(key, out byte[] v))
                                 {
@@ -275,7 +320,12 @@ namespace AutoCrawlerTool.M3U8Video
                 }
             }).ContinueWith(t =>
             {
-                isFinish = true;
+                _isFinish = true;
+                _getVideoAutoAction?.StopExecuteAsync();
+                if (this.IsDisposed)
+                {
+                    return;
+                }
                 this.BeginInvoke(new Action(() =>
                 {
                     this.Btn_Get.Enabled = true;
@@ -284,6 +334,5 @@ namespace AutoCrawlerTool.M3U8Video
                 }));
             });
         }
-
     }
 }

@@ -46,8 +46,10 @@ namespace AutoCrawlerTool.M3U8Video
         }
 
 
-        public static async Task<List<string>> GetM3U8TsUrlsAsync(string resourceUrl, string m3u8UrlMatchReg, string m3u8FileSavePath)
+        public static async Task<List<string>> GetM3U8TsUrlsAsync(string resourceUrl, string m3u8UrlMatchReg, string m3u8FileSavePath,
+            string resourceDirectoryUrl = null)
         {
+            resourceUrl = resourceUrl.Replace("\\", string.Empty);
             string m3u8Url;
             {
                 if (resourceUrl.Substring(resourceUrl.Length - 5).ToLower() == ".m3u8")
@@ -67,7 +69,7 @@ namespace AutoCrawlerTool.M3U8Video
 
             List<string> lines = new List<string>();
             Uri uri = default;
-            for (int c = 0; c < 6; c++)
+            for (int c = 0; c < 5; c++)
             {
                 try
                 {
@@ -116,6 +118,11 @@ namespace AutoCrawlerTool.M3U8Video
                 string url = item.Trim();
                 if (url.Substring(0, 1) != "#")
                 {
+                    if (!string.IsNullOrWhiteSpace(resourceDirectoryUrl))
+                    {
+                        url = resourceDirectoryUrl.Trim() + url;
+                    }
+
                     if (url.Contains("http"))
                     {
                         tsUrls.Add(url);
@@ -149,7 +156,7 @@ namespace AutoCrawlerTool.M3U8Video
         public static async Task<(bool, byte[])> DownloadVideoClipAsync(string url)
         {
             byte[] res = null;
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 10; i++)
             {
                 try
                 {
@@ -160,7 +167,7 @@ namespace AutoCrawlerTool.M3U8Video
                 {
                     res = null;
                 }
-                await Task.Delay(new Random().Next(1000, 2000));
+                await Task.Delay(new Random().Next(2000, 3000));
             }
 
             if (res == null || res.Length < 1)
